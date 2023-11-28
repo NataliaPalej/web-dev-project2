@@ -1,6 +1,7 @@
 // Rot URL for RESTful API
 var rootURL = 'http://localhost/Assessment/Sprint2/api/makeup';
-var apiURL = 'http://localhost/Assessment/Sprint2/api';
+var loginURL = 'http://localhost/Assessment/Sprint2/api/';
+var userURL = 'http://localhost/Assessment/Sprint2/api/user';
 var currentProduct;
 
 
@@ -14,7 +15,7 @@ var currentProduct;
 var loginUser = function (email, password) {
     $.ajax({
         type: 'GET',
-        url: apiURL + '/authenticate',
+        url: loginURL + '/authenticate',
         contentType: 'application/json',
         data: JSON.stringify({ email: email, password: password }),
         success: function (data, textStatus, jqXHR) {
@@ -180,7 +181,7 @@ var updateProduct=function(){
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
-        url: rootURL + '/' + $('#productID'.val()),
+        url: rootURL + '/' + $('#productID').val(),
         data: formToJSON(),
         success: function(data, textStatus, jqXHR) {
             console.log("success : Product updated " + $('#productID'.val()));
@@ -198,19 +199,32 @@ var renderList = function (data) {
     console.log("renderList() loading...");
     var list = data.products;
     $.each(list, function (index, products) {
-        $('#productsBody').append(
-            '<tr><td>' + products.productID +
-            '</td><td>' + products.productName +
-            '</td><td>' + products.productCategory +
-            '</td><td>' + products.productDescription +
-            '</td><td>' + products.company +
-            '</td><td>&euro;' + products.price +
-            '</td><td>' + products.stock +
-            '</td><td>' + products.onSale +
-            '</td><td>' + products.discontinued +
-            '</td><td><img src="pics/' + products.picture + '" alt="' + products.productName + '" width="100" height="100"></td></tr>'
+        var row = $('<tr>');
+        row.append('<td>' + products.productID + '</td>');
+        row.append('<td style="font-size: 14px;">' + products.productName + '</td>');
+        row.append('<td>' + products.productCategory + '</td>');
+
+        // Create Description column with accordion to show text when pressed
+        var descriptionColumn = $('<td style="font-size: 11px;">');
+        descriptionColumn.append(
+            '<a class="btn btn-link" data-toggle="collapse" href="#descriptionAccordion' + index + '" role="button" aria-expanded="false" aria-controls="descriptionAccordion' + index + '">Show Description</a>'
         );
+        descriptionColumn.append(
+            '<div class="collapse description-accordion" id="descriptionAccordion' + index + '">' + products.productDescription + '</div>'
+        );
+        row.append(descriptionColumn);
+
+        row.append('<td>' + products.company + '</td>');
+        row.append('<td>&euro;' + products.price + '</td>');
+        row.append('<td>' + products.stock + '</td>');
+        row.append('<td>' + products.onSale + '</td>');
+        row.append('<td>' + products.discontinued + '</td>');
+        row.append('<td><img src="pics/' + products.picture + '" alt="' + products.productName + '" width="100" height="100"></td>');
+
+        // Append the row to the tbody
+        $('#productsBody').append(row);
     });
+
     console.log("success : renderList() loaded");
     $('#productTable').dataTable();
 };
@@ -255,6 +269,15 @@ var formToJSON = function() {
 };
 
 
+// Bootstrap accordion to display Description when clicked on it
+$(document).ready(function () {
+    // Add a click event listener to the Description cells
+    $('#productTable tbody').on('click', 'td:nth-child(4)', function () {
+        // Toggle the collapse state of corresponding accordion content
+        $(this).closest('tr').find('.description-accordion').collapse('toggle');
+    });
+});
+
 
 /************************
  * 
@@ -267,7 +290,7 @@ var addUser=function (){
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
-        url: rootURL,
+        url: userURL,
         dataType: "json",
         data: formToJSON(),
         success: function(data, textStatus, jqXHR){
@@ -286,7 +309,7 @@ var addUser=function (){
 var getUsers=function(){
     $.ajax({
         type: 'GET',
-        url: rootURL,
+        url: userURL,
         dataType: 'json',
         // call renderList to display all rows from db
         success: renderUsers
@@ -343,7 +366,7 @@ var updateUser=function(){
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
-        url: rootURL + '/' + $('#userID'.val()),
+        url: userURL + '/' + $('#userID'.val()),
         data: formToJSON(),
         success: function(data, textStatus, jqXHR) {
             console.log("success : User updated " + $('#userID'.val()));
@@ -359,12 +382,12 @@ var updateUser=function(){
 // DELETE user
 var deleteUser=function(){
     console.log("deleteUser() : called");
-    console.log("User to delete: " + rootURL + "/" + $('#userID').val());
+    console.log("User to delete: " + userURL + "/" + $('#userID').val());
 
     $.ajax({
         type: 'DELETE',
         contentType: 'application/json',
-        url: rootURL + '/' + $('#userID').val(),
+        url: userURL + '/' + $('#userID').val(),
         success: function(data, textStatus, jqXHR) {
             console.log("success : User " + $('#userID').val + " deleted.");
             alert("success : User " + $('#userID').val + "was deleted.");
@@ -523,6 +546,20 @@ $(document).ready(function(){
     $('#logoutBtn').click(function(){
         logoutBtn();
         return false;
+    });
+
+
+    // Open the logout modal when the button is clicked
+    $('#openLogoutModal').click(function() {
+        console.log("success : openLogoutModal clicked")
+        $('#logoutModal').modal('show');
+    });
+
+    // Handle logout confirmation
+    $('#confirmLogoutBtn').click(function() {
+        console.log("success : confirmLogoutBtn clicked")
+        // Call logout function
+        logoutBtn();
     });
 
     // Reset the form to empty fields

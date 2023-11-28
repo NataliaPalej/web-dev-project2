@@ -1,132 +1,204 @@
 <html>
-<head>
-<title>A00279259 Natalia Palej</title>
-<meta charset="UTF-8">
-<!-- Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" >
-<!-- Stylesheets -->
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-<link rel="stylesheet" href="css/styles.css" />
-<link rel="stylesheet" href="css/jquery.dataTables.css" />
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<!-- JavaScript Links -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="script/jquery-3.6.1.min.js"></script>
-<script src="script/main.js"></script>
-<script src="script/jquery.dataTables.js"></script>
 
-<style>
-    .background {
-        background-image: url("pics/brushes3.jpg");
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-    }
-</style>
+<head>
+    <title>A00279259 Natalia Palej</title>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Script Links -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="script/main.js"></script>
+    <script src="script/jquery.dataTables.js"></script>
+
+    <style>
+        .background {
+            background-image: url("pics/brushes3.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        .nav-pills {
+            display: flex;
+            flex-direction: column;
+            width: 200px;
+        }
+    </style>
 
 </head>
 
 <body class="background">
-<h1 class="center w3-allerta">Makeup Store Application</h1>
-	
-<!-- Nav Bar -->
-<nav class="navbar navbar-inverse ">
-	<div class="container-fluid">
-		<div class="navbar-header">
-		<a class="navbar-brand" href="#">Makeup Application</a>
-		</div>
-
-		<ul class="nav navbar-nav">
-			<li class="active"><a href="home.html">Home</a></li>
-            <li><a href="index.html">Products</a></li>
-			<li><a href="settings.html">Settings</a></li>
-			<li><a href="logout.html">Logout</a></li>
-		</ul>
-	</div>
-</nav>
-
-<!-- Setting Content -->
-<div class="w3-display-left w3-card form-margin-left">
-    <h2 class="raleway w3-center">Settings</h2><br><br>
-    <p>Here you can make changes to your account.</p>
-    <!-- UPDATE Button to show form-->
-    <div class="w3-margin">
-        <button type="submit" class="button btn-success w3-margin" style="width: 200px;" id="showFormBtn">Update Account</button>
+    <!-- Makeup Store Application Header -->
+    <div class="text-center">
+        <h1 class="center w3-allerta">Makeup Store Application</h1>
     </div>
-    <!-- DELETE button -->
-    <div class="w3-margin">
-        <button id="btnDeleteUser" class="button btn-danger w3-margin" style="width: 200px;">Delete Account</button>
+
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-inverse">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- When screen is small, make the navbar smaller and display dropdown options -->
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Makeup Application</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="home.html">Home</a></li>
+                    <li><a href="index.html">Products</a></li>
+                    <li><a href="settings.html">Settings</a></li>
+                    <li><a href="logout.html">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Settings Content -->
+    <div class="container-fluid mt-3">
+        <div class="row">
+            <!-- Settings MENU -->
+            <div class="col-sm-2 w3-margin">
+                <div class="container">
+                    <ul class="nav nav-pills">
+                        <h1 class="w3-round-large">Settings</h1>
+                        <li class="nav-item menubtn"><a class="nav-link active" data-toggle="pill"
+                                href="#updateTab">Update</a></li>
+                        <li class="nav-item menubtn"><a class="nav-link" data-toggle="pill" href="#deleteTab">Delete</a>
+                        </li>
+                        <li class="nav-item menubtn"><a class="nav-link" data-toggle="pill" href="#logoutTab">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Different TABS -->
+            <div class="col-sm-7">
+                <div class="tab-content">
+                    <!-- Update -->
+                    <div id="updateTab" class="tab-pane fade in active w3-white w3-margin w3-padding">
+                        <h1 class="raleway w3-center">Update Account</h1>
+                        <p class="text-center w3-margin">Here you can make changes to your account.</p>
+                        <button type="submit" class="button btn-success w3-margin" style="width: 200px;"
+                            id="showFormBtn">Update Account</button>
+
+
+                        <!-- Update Form -->
+                        <div>
+                            <form id="btnUpdateForm" style="display: none;">
+                                <div class="form-group">
+                                    <label for="username" class="label">Username</label>
+                                    <input type="text" class="form-control inputText" id="username"
+                                        placeholder="Enter username">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="password" class="label">Password</label>
+                                    <input type="password" class="form-control inputText" id="password"
+                                        placeholder="Enter password">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="firstName" class="label">First Name</label>
+                                    <input type="text" class="form-control inputText" id="firstName"
+                                        placeholder="Enter first name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="lastName" class="label">Last Name</label>
+                                    <input type="text" class="form-control inputText" id="lastName"
+                                        placeholder="Enter last name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="address" class="label">Address</label>
+                                    <input type="text" class="form-control inputText" id="address"
+                                        placeholder="Enter address">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phoneNumber" class="label">Phone Number</label>
+                                    <input type="tel" class="form-control inputText" id="phoneNumber"
+                                        placeholder="Enter phone number">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="label">Email</label>
+                                    <input type="email" class="form-control inputText" id="email"
+                                        placeholder="Enter email">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="image" class="label">Profile Image</label>
+                                    <input type="file" class="form-control-file inputText" id="image">
+                                </div>
+
+                                <!-- Save Button -->
+                                <button type="submit" class="button" id="btnSaveUser">Save</button>
+                            </form>
+                        </div>
+
+
+                    </div>
+
+                    <!-- Delete -->
+                    <div id="deleteTab" class="tab-pane fade w3-white w3-margin w3-padding" style="opacity: 85%;">
+                        <h3 class="raleway w3-center">Delete Account</h3>
+                        <button id="btnDeleteUser" class="button btn-danger w3-margin" style="width: 200px;">Delete
+                            Account</button>
+                    </div>
+
+                    <!-- Logout -->
+                    <div id="logoutTab" class="tab-pane fade w3-white w3-margin w3-padding">
+                        <h3 class="raleway w3-center">Are you sure you want to log out?</h3>
+                        <button id="openLogoutModal" class="button w3-margin" style="width: 200px;" data-toggle=modal data-target="#logoutModal">Logout</button>
+                    </div>
+
+                    <!-- Logout Modal -->
+                    <div class="modal fade" id="logoutModal" role="dialog"
+                        aria-labelledby="logoutModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title w3-red" id="logoutModalLabel">Logout</h1>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <p>Are you sure you want to log out?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="button btn-secondary" data-dismiss="modal">Cancel</button>
+                                    <button type="button" class="button btn-danger" id="confirmLogoutBtn">Logout</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PICTURE -->
+            <div class="col-sm-2 text-white picture-settings">
+                <img src="pics/face.jpg" alt="face" style="width: 250px;" />
+            </div>
+        </div>
     </div>
-    <!-- LOGOUT button -->
-    <div class="w3-margin">
-        <button id="logoutBtn" class="button w3-margin" style="width: 200px;">Logout</button>
-    </div>
-</div>
-
-<!-- Picture -->
-<div class="position-right">
-    <img src="pics/face.jpg" alt="face" style="width: 400px;"/>
-</div>
-
-<div class="w3-display-middle form-margin-top">
-    <!-- Update Form -->
-    <form id="btnUpdateForm" style="display: none;">
-        <div class="form-group">
-            <label for="username" class="label-white">Username</label>
-            <input type="text" class="form-control inputText" id="username" placeholder="Enter username">
-        </div>
-
-        <div class="form-group">
-            <label for="password" class="label-white">Password</label>
-            <input type="password" class="form-control inputText" id="password" placeholder="Enter password">
-        </div>
-
-        <div class="form-group">
-            <label for="firstName" class="label-white">First Name</label>
-            <input type="text" class="form-control inputText" id="firstName" placeholder="Enter first name">
-        </div>
-
-        <div class="form-group">
-            <label for="lastName" class="label-white">Last Name</label>
-            <input type="text" class="form-control inputText" id="lastName" placeholder="Enter last name">
-        </div>
-
-        <div class="form-group">
-            <label for="address" class="label-white">Address</label>
-            <input type="text" class="form-control inputText" id="address" placeholder="Enter address">
-        </div>
-
-        <div class="form-group">
-            <label for="phoneNumber" class="label-white">Phone Number</label>
-            <input type="tel" class="form-control inputText" id="phoneNumber" placeholder="Enter phone number">
-        </div>
-
-        <div class="form-group">
-            <label for="email" class="label-white">Email</label>
-            <input type="email" class="form-control inputText" id="email" placeholder="Enter email">
-        </div>
-
-        <div class="form-group">
-            <label for="image" class="label-white">Profile Image</label>
-            <input type="file" class="form-control-file inputText" id="image">
-        </div>
-
-        <!-- Save Button -->
-        <button type="submit" class="button" id="btnSaveUser">Save</button>
-
-        <br><br><br><br><br><br>
-    </form>
-</div>
-
-
-
 
     <footer class="text-center">
-        <p>Natalia Palej   |   Student No: A00279259<br>
+        <p>Natalia Palej | Student No: A00279259<br>
             Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
     </footer>
 
 </body>
+
 </html>
