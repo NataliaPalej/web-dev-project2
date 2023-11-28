@@ -4,13 +4,10 @@ var loginURL = 'http://localhost/Assessment/Sprint2/api/';
 var userURL = 'http://localhost/Assessment/Sprint2/api/user';
 var currentProduct;
 
-
-
-
 /*************************
- * 
- *        LOGIN   
- * 
+ *                       *
+ *     COMMON METHODS    *
+ *                       *
  ************************/
 var loginUser = function (email, password) {
     $.ajax({
@@ -29,13 +26,18 @@ var loginUser = function (email, password) {
     });
 };
 
+// LOGOUT button
+var logoutBtn = function() {
+    console.log("logoutBtn() : called");
+    window.location.href = "logout.html";
+};
 
 
 
 /***************************
- * 
- *     PRODUCT METHODS
- * 
+ *                         *
+ *     PRODUCT METHODS     *
+ *                         *
  **************************/
 
 // Search product name
@@ -279,11 +281,13 @@ $(document).ready(function () {
 });
 
 
-/************************
- * 
- *     USER METHODS 
- * 
- ************************/
+
+
+                    /************************
+                     *                      *
+                     *     USER METHODS     * 
+                     *                      *
+                     ************************/
 // ADD user
 var addUser=function (){
     console.log("addUser() : called");
@@ -404,18 +408,6 @@ var deleteUser=function(){
 
 
 
-/*****************************
- * 
- *      COMMON METHODS
- * 
- *****************************/
-
-
-// LOGOUT button
-var logoutBtn = function() {
-    console.log("logoutBtn() : called");
-    window.location.href = "logout.html";
-};
 
 
 
@@ -424,12 +416,19 @@ var logoutBtn = function() {
 
 
 
-/*****************************
- * 
- *      WHEN DOM IS READY 
- * 
- *****************************/
+
+                    /******************************
+                     *                            *
+                     *      WHEN DOM IS READY     *
+                     *                            *
+                     *****************************/
 $(document).ready(function(){
+
+    /**********************
+     *                    *
+     *   COMMON BUTTONS   *
+     *                    *
+     **********************/
 
     $('#btnLogin').click(function (e) {
         e.preventDefault();
@@ -442,10 +441,17 @@ $(document).ready(function(){
         loginUser(email, password);
     });
 
+    // LOGOUT button
+    $('#logoutBtn').click(function(){
+        logoutBtn();
+        return false;
+    });
 
-
-
-
+    // Open the logout modal when the button is clicked
+    $('#openLogoutModal').click(function() {
+        console.log("success : openLogoutModal clicked")
+        $('#logoutModal').modal('show');
+    });
 
 
     // Nothing to delete in initial state 
@@ -453,10 +459,12 @@ $(document).ready(function(){
 
 
 
-    /**************************
-     * 
-     *     PRODUCT BUTTONS
-     * 
+
+
+    /*************************
+     *                        *  
+     *     PRODUCT BUTTONS    *
+     *                        *
      *************************/
     // Search button ????
     $('#btnSearch').click(function(){
@@ -503,13 +511,29 @@ $(document).ready(function(){
     });
 
 
+      // Reset the form to empty fields
+      $('#productID').val("");
+      $('#productName').val("");
+      $('#productCategory').val("");
+      $('#productDescription').val("");
+      $('#company').val("");
+      $('#price').val("");
+      $('#stock').val("");
+      $('#onSale').val("");
+      $('#discontinued').val("");
+      $('#picture').attr('src', "");
+  
+      // Call findAll method
+      findAll();
+  
+
 
 
 
     /************************
-     * 
-     *     USER BUTTONS
-     * 
+     *                      *
+     *     USER BUTTONS     *
+     *                      *
      ************************/
 
     // Show/hide update form - user account
@@ -534,49 +558,7 @@ $(document).ready(function(){
         return false;
     });
 
-
-
-
-    /**********************
-     * 
-     *   COMMON BUTTONS
-     * 
-     **********************/
-    // LOGOUT button
-    $('#logoutBtn').click(function(){
-        logoutBtn();
-        return false;
-    });
-
-
-    // Open the logout modal when the button is clicked
-    $('#openLogoutModal').click(function() {
-        console.log("success : openLogoutModal clicked")
-        $('#logoutModal').modal('show');
-    });
-
-    // Handle logout confirmation
-    $('#confirmLogoutBtn').click(function() {
-        console.log("success : confirmLogoutBtn clicked")
-        // Call logout function
-        logoutBtn();
-    });
-
-    // Reset the form to empty fields
-    $('#productID').val("");
-    $('#productName').val("");
-    $('#productCategory').val("");
-    $('#productDescription').val("");
-    $('#company').val("");
-    $('#price').val("");
-    $('#stock').val("");
-    $('#onSale').val("");
-    $('#discontinued').val("");
-    $('#picture').attr('src', "");
-
-    // Call findAll method
-    findAll();
-
+  
     
 
     
