@@ -1,85 +1,3 @@
-* {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 18px;
-  }
-  
-  .header {
-	padding-top: 50px;
-	left:850px;
-  }
-  
-  .leftArea {
-	position: absolute;
-	left: 10px;
-	top: 150px;
-	bottom: 20px;
-	width: auto;
-	border:solid 1px #CCCCCC;
-	overflow-y: scroll;
-  }
-  
-  .mainArea {
-	position: absolute;
-	top: 150px;
-	bottom: 20px;
-	left:300px;
-	overflow-y: scroll;
-	width:auto;
-  }
-  
-  .rightArea {
-	position: absolute;
-	top: 150px;
-	bottom: 20px;
-	left:650px;
-	overflow-y: scroll;
-	width:auto;
-  }
-  
-  ul {
-	list-style-type: none;
-	padding-left: 0px;
-	margin-top: 0px;
-  }
-  
-  li a { 
-	text-decoration:none;
-	display: block;
-	color: #000000;
-	border-bottom:solid 1px #CCCCCC;
-	padding: 8px;
-  }
-  
-  li a:hover {
-	background-color: #4B0A1E;
-	color: #BA8A92;
-  }
-  
-  input, textarea {
-	border:1px solid #ccc;
-	min-height:30px;
-	outline: none;
-  }
-  
-  .mainArea input {
-	margin-bottom:15px;
-	margin-top:5px;
-	width:280px;
-  }
-  
-  textarea {
-	margin-bottom:15px;
-	margin-top:5px;
-	height: 200px;
-	width:250px;
-  }
-  
-  #searchName {
-	width:160px;
-  }
-  
-
-
 .w3-allerta {
 	font-family: "Allerta Stencil", Sans-serif;
 }
@@ -95,39 +13,21 @@
 
 h1 {
 	background-color: #4e0a54;
-	color: white;
-	margin: 0px;
+	/* !important ensures style is applied */
+	color: white !important; 
 	padding: 16px;
 	text-align: center;
+	position: relative;
+	margin: 0 !important;
 }
 
 h3 {
 	background-color: #4e0a54;
-	color: white;
-	margin: 16px;
+	/* !important ensures style is applied */
+	color: white !important; 
 	padding: 16px;
+	margin-bottom: 64px;
 	text-align: center;
-}
-
-h4 {
-	background-color: #4e0a54;
-	color: white;
-	margin: 8px;
-	padding: 8px;
-	text-align: center;
-}
-
-.table {
-	border-width: 0.5px;
-	border-style: solid;
-	border-color: #C8C2CB;
-	background-color: white;
-	opacity: 85%;
-}
-
-.w3-hoverable tbody tr:hover {
-	background-color: #4A235A;
-	color: white;
 }
 
 .form {
@@ -136,22 +36,15 @@ h4 {
 	margin-bottom: 100px;
 	padding: 16px;
 	position: relative;
-}
-
-.form-container {
-	background-color: white;
-	opacity: 80%;
-	margin-bottom: 100px;
-	padding: 16px;
-	position: relative;
-	margin: auto;
-	max-width: 600px;
+	margin-left: 32px;
+	margin-right: 32px;
 }
 
 .label {
-	color: #4e0a54;
+	color: #4e0a54 !important;
 	font-weight: bold;
 	text-align: left;
+	font-size: 15px !important;
 }
 
 .label-white {
@@ -163,8 +56,9 @@ h4 {
 footer {
 	position: fixed;
 	bottom: 0;
-	width: 100%;
+	width: auto;
 	padding: 8px;
+	padding-top: 16px;
 	text-align: center;
 	background-color: #4e0a54;
 	color: white;
@@ -190,29 +84,19 @@ body {
 	cursor: pointer;
 }
 
-button:hover {
-	color: white;
-	background-color: #4A235A;
-}
-
-.inputSubmit {
+.button-login {
 	padding: 20px 40px;
 	border: none;
 	border-radius: 8px;
 	margin-right: 16px;
 	cursor: pointer;
-	margin: 32px;
-	background-color: #a663c2;
+	background-color: rgb(219, 22, 101);
+	color: white;
 }
 
-.menuType {
-	border: none;
-	border-radius: 8px;
-	background-color: #a663c2;
-	cursor: pointer;
-	margin-left: 16px;
-	padding: 20px;
-	width: 50%;
+button:hover {
+	color: white;
+	background-color: #4A235A;
 }
 
 input[type="submit"]:hover {
@@ -228,7 +112,67 @@ input[type="submit"]:hover {
 	box-sizing: border-box;
 }
 
-.input {
-	width: 30%;
-	background-color: transparent;
+
+/* Style for DataTables search input */
+.dataTables_filter input {
+	width: 250px;
+	height: 30px;
+	padding: 10px;
+	margin: 10px 10px;
+	box-sizing: border-box;
+	border: 1px solid;
 }
+  
+  /* Style for DataTables search label */
+  .dataTables_filter label {
+	color: #4A235A;
+	font-size: 15px;
+  }
+
+  /* Style for DataTables length dropdown */
+.dataTables_length {
+	margin-top: 10px;
+  }
+  
+  /* Style for the dropdown label */
+  .dataTables_length label {
+	font-size: 15px;
+	margin-right: 5px;
+  }
+  
+  /* Style for the dropdown itself */
+  .dataTables_length select {
+	width: 80; 
+	color: #4e0a54;
+	padding: 5px;
+	box-sizing: border-box;
+	border: 1px solid;
+  }
+
+  .navbar {
+	background-color: #221823 !important;
+  }
+
+  .navbar-nav li {
+	/* Add spacing between navbar items */
+	margin-left: 15px; 
+  }
+
+  .form-margin-left{
+	margin-left: 64px;
+	padding: 32px;
+	background-color: white;
+	opacity: 85%;
+  }
+
+  .form-margin-top{
+	margin-top: 120px;
+	margin-bottom: 64px;
+	padding: 64x;
+  }
+
+  .position-right{
+	margin-left: 70%;
+	margin-right: 10%;
+	margin-top: 5%;
+  }
