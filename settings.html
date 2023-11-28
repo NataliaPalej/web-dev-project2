@@ -1,0 +1,132 @@
+<html>
+<head>
+<title>A00279259 Natalia Palej</title>
+<meta charset="UTF-8">
+<!-- Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" >
+<!-- Stylesheets -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+<link rel="stylesheet" href="css/styles.css" />
+<link rel="stylesheet" href="css/jquery.dataTables.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<!-- JavaScript Links -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<script src="script/jquery-3.6.1.min.js"></script>
+<script src="script/main.js"></script>
+<script src="script/jquery.dataTables.js"></script>
+
+<style>
+    .background {
+        background-image: url("pics/brushes3.jpg");
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+    }
+</style>
+
+</head>
+
+<body class="background">
+<h1 class="center w3-allerta">Makeup Store Application</h1>
+	
+<!-- Nav Bar -->
+<nav class="navbar navbar-inverse ">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		<a class="navbar-brand" href="#">Makeup Application</a>
+		</div>
+
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="home.html">Home</a></li>
+            <li><a href="index.html">Products</a></li>
+			<li><a href="settings.html">Settings</a></li>
+			<li><a href="logout.html">Logout</a></li>
+		</ul>
+	</div>
+</nav>
+
+<!-- Setting Content -->
+<div class="w3-display-left w3-card form-margin-left">
+    <h2 class="raleway w3-center">Settings</h2><br><br>
+    <p>Here you can make changes to your account.</p>
+    <!-- UPDATE Button to show form-->
+    <div class="w3-margin">
+        <button type="submit" class="button btn-success w3-margin" style="width: 200px;" id="showFormBtn">Update Account</button>
+    </div>
+    <!-- DELETE button -->
+    <div class="w3-margin">
+        <button id="btnDeleteUser" class="button btn-danger w3-margin" style="width: 200px;">Delete Account</button>
+    </div>
+    <!-- LOGOUT button -->
+    <div class="w3-margin">
+        <button id="logoutBtn" class="button w3-margin" style="width: 200px;">Logout</button>
+    </div>
+</div>
+
+<!-- Picture -->
+<div class="position-right">
+    <img src="pics/face.jpg" alt="face" style="width: 400px;"/>
+</div>
+
+<div class="w3-display-middle form-margin-top">
+    <!-- Update Form -->
+    <form id="btnUpdateForm" style="display: none;">
+        <div class="form-group">
+            <label for="username" class="label-white">Username</label>
+            <input type="text" class="form-control inputText" id="username" placeholder="Enter username">
+        </div>
+
+        <div class="form-group">
+            <label for="password" class="label-white">Password</label>
+            <input type="password" class="form-control inputText" id="password" placeholder="Enter password">
+        </div>
+
+        <div class="form-group">
+            <label for="firstName" class="label-white">First Name</label>
+            <input type="text" class="form-control inputText" id="firstName" placeholder="Enter first name">
+        </div>
+
+        <div class="form-group">
+            <label for="lastName" class="label-white">Last Name</label>
+            <input type="text" class="form-control inputText" id="lastName" placeholder="Enter last name">
+        </div>
+
+        <div class="form-group">
+            <label for="address" class="label-white">Address</label>
+            <input type="text" class="form-control inputText" id="address" placeholder="Enter address">
+        </div>
+
+        <div class="form-group">
+            <label for="phoneNumber" class="label-white">Phone Number</label>
+            <input type="tel" class="form-control inputText" id="phoneNumber" placeholder="Enter phone number">
+        </div>
+
+        <div class="form-group">
+            <label for="email" class="label-white">Email</label>
+            <input type="email" class="form-control inputText" id="email" placeholder="Enter email">
+        </div>
+
+        <div class="form-group">
+            <label for="image" class="label-white">Profile Image</label>
+            <input type="file" class="form-control-file inputText" id="image">
+        </div>
+
+        <!-- Save Button -->
+        <button type="submit" class="button" id="btnSaveUser">Save</button>
+
+        <br><br><br><br><br><br>
+    </form>
+</div>
+
+
+
+
+    <footer class="text-center">
+        <p>Natalia Palej   |   Student No: A00279259<br>
+            Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
+    </footer>
+
+</body>
+</html>
