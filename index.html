@@ -1,29 +1,48 @@
 <html>
 <head>
-<title>A00279259 Natalia Palej</title>
+<title>Index - A00279259 Natalia Palej</title>
 <meta charset="UTF-8">
 <!-- Fonts -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" >
 <!-- Stylesheets -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
 <link rel="stylesheet" href="css/styles.css" />
 <link rel="stylesheet" href="css/jquery.dataTables.css" />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <!-- JavaScript Links -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <script src="script/jquery-3.6.1.min.js"></script>
 <script src="script/main.js"></script>
 <script src="script/jquery.dataTables.js"></script>
 </head>
 
 <body>
-<h1 class="w3-pink w3-center w3-padding w3-allerta">Makeup Store Application</h1>
+<h1 class="center w3-allerta">Makeup Store Application</h1>
+	
+
+<nav class="navbar navbar-inverse">
+	<div class="container-fluid">
+		<div class="navbar-header">
+		<a class="navbar-brand" href="#">Makeup Application</a>
+		</div>
+
+		<ul class="nav navbar-nav">
+			<li class="active"><a href="home.html">Home</a></li>
+            <li><a href="index.html">Products</a></li>
+			<li><a href="settings.html">Settings</a></li>
+			<li><a href="logout.html">Logout</a></li>
+		</ul>
+	</div>
+</nav>
 
 <h3>Welcome</h3>
 
-<div>
-	<table id="table_id" class="display">
+	<br>
+	<table id="productTable" class="table table-bordered table-striped table-hover">
 		<thead>
-			<tr>
+			<tr class="centre">
 				<th>ProductID</th>
 				<th>Name</th>
 				<th>Category</th>
@@ -36,9 +55,14 @@
 				<th>Picture</th>
 			</tr>
 		</thead>
-			<tbody id="table_body">
+			<tbody id="productsBody">
 			</tbody>
-</div>
+	</table>
+
+	<footer class="text-center">
+        <p>Natalia Palej  |  Student No: A00279259<br>
+            Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
+    </footer>
 
 </body>
 </html>
