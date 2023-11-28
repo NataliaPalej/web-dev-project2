@@ -1,6 +1,6 @@
 // Rot URL for RESTful API
 var rootURL = 'http://localhost/Assessment/Sprint2/api/makeup';
-var loginURL = 'http://localhost/Assessment/Sprint2/api/';
+var loginURL = 'http://localhost/Assessment/Sprint2/api';
 var userURL = 'http://localhost/Assessment/Sprint2/api/user';
 var currentProduct;
 
@@ -14,14 +14,22 @@ var loginUser = function (email, password) {
         type: 'GET',
         url: loginURL + '/authenticate',
         contentType: 'application/json',
-        data: JSON.stringify({ email: email, password: password }),
+        data: { email: email, password: password },
         success: function (data, textStatus, jqXHR) {
-            // Redirect to home.html upon successful login
-            window.location.href = 'home.html';
-            console.log("success : loginUser() " + email);
+            console.log("Success Data:", data);
+            // If status 200 user auth and can be redirected to home.html
+            if (jqXHR.status === 200) { 
+                console.log("Login successful!");
+                sessionStorage.setItem('loggedInUser', JSON.stringify(data));
+                window.location.href = 'home.html';
+            } else {
+                console.log("error : loginUser() ", textStatus, jqXHR.status);
+                alert("An error occurred during login. Please try again.");
+            }
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error : loginUser() " + textStatus);
+            console.log("error : loginUser() ", textStatus, errorThrown);
+            alert("error : Invalid email or password. Please try again.");
         }
     });
 };
@@ -364,17 +372,17 @@ var renderUser=function(users){
 };
 
 
-// UPDATE user with ID
+// UPDATE user with email
 var updateUser=function(){
     console.log("updateUser() : called");
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
-        url: userURL + '/' + $('#userID'.val()),
+        url: userURL + '/' + loggedInUser.email,
         data: formToJSON(),
         success: function(data, textStatus, jqXHR) {
-            console.log("success : User updated " + $('#userID'.val()));
-            alert("success : User updated " + $('#userID'.val()));  
+            console.log("success : User updated " + $('#email'.val()));
+            alert("success : User updated " + $('#email'.val()));  
             findAll();
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -440,6 +448,23 @@ $(document).ready(function(){
         // Call the loginUser function
         loginUser(email, password);
     });
+
+
+    // Check if the user is logged in
+    var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    if (loggedInUser) {
+        // Auto-populate the form fields
+        $('#username').val(loggedInUser.username);
+        $('#password').val(loggedInUser.password);
+        $('#firstName').val(loggedInUser.firstName);
+        $('#lastName').val(loggedInUser.lastName);
+        $('#address').val(loggedInUser.address);
+        $('#phoneNumber').val(loggedInUser.phoneNo);
+        $('#email').val(loggedInUser.email);
+    }
+
+
+
 
     // LOGOUT button
     $('#logoutBtn').click(function(){

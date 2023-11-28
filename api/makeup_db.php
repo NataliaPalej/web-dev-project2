@@ -288,9 +288,43 @@ function deleteUser($userID) {
 	}
 }
 
+function authenticateUser($email = null, $password = null) {
+    global $app;
+    global $db;
 
-function authenticateUser($email){
-	$query = "SELECT email, password FROM users WHERE userID = '$email'";
+    // If parameters are not provided, use $app->request to access request parameters
+    if ($email === null) {
+        $email = $app->request->params('email');
+    }
+
+    if ($password === null) {
+        $password = $app->request->params('password');
+    }
+
+    $query = "SELECT * FROM users WHERE email = :email AND password = :password";
+    try {
+        $stmt = $db->prepare($query);
+        $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+        $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($user) {
+            header("Content-Type: application/json", true);
+            echo json_encode($user);
+        } else {
+			$app->response->setStatus(401); // Unauthorized status code
+            echo '{"error":{"message":"Invalid email or password."}}';
+        }
+    } catch (PDOException $e) {
+		$app->response->setStatus(500); // Internal Server Error status code
+        echo '{"error":{"message":"An error occurred.","details":"' . $e->getMessage() . '"}}';
+    }
+}
+
+
+function getUserByEmail($email){
+	$query = "SELECT * FROM users WHERE userID = '$email'";
     try {
 		global $db;
 		$users = $db->query($query);  

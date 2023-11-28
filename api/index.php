@@ -27,18 +27,22 @@ $app->delete('/makeup/:productID', 'deleteProduct');
 /**
 users table CRUD
 **/
-$app->get('/users', 'getUsers');
-$app->get('/users/:id',  'getUser');
-$app->get('/users/:query', 'searchByName');
-$app->post('/users', 'addUser');
-$app->put('/users/:userID', 'updateUser');
-$app->delete('/users/:userID', 'deleteUser');
+$app->get('/user', 'getUsers');
+$app->get('/user/:id',  'getUser');
+$app->get('/user/:query', 'searchByName');
+$app->post('/user', 'addUser');
+$app->put('/user/:userID', 'updateUser');
+$app->delete('/user/:userID', 'deleteUser');
 
 
 /**
 login
 **/
-$app->get('/authenticate', 'authenticateUser');
+$app->get('/authenticate', 'authenticateUser');;
+/**
+get user by email for update purposes
+**/
+$app->get('/user/:email', 'getUserByEmail');
 
 
 
