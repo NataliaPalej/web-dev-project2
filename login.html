@@ -1,53 +1,81 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-<meta charset="ISO-8859-1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<!-- Fonts -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
-<!-- CSS -->
-<link rel="stylesheet" type="text/css" href="css/styles.css">
-<title>Login - Natalia Palej A00279259</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap" >
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="script/jquery-3.6.1.min.js"></script>
+    <script src="script/main.js"></script>
+    <title>Login - Natalia Palej A00279259</title>
 
-<style>
-	.background{
-		background-image: url("pics/login.jpg");
-  		background-repeat: no-repeat;
-  		background-attachment: fixed;
-  		background-size: cover;
-		}
-</style>
-
+    <style>
+        .background {
+            background-image: url("pics/login.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
 </head>
 
 <body class="background">
-<h1 class="w3-allerta">Makeup Store Application</h1>
-	<div class="w3-half w3-card w3-margin w3-padding">
-		<h3>Log In:</h3>
-		<form method = "post" action="LoginServlet">
-			<label class="label">Email: </label> 
-			<input type="text" name="owner_email" class="inputText"/>
-			<br>
-			<label class="label">Password</label> 
-			<input type="password" name="password" class="inputText"/>
-			<input type="submit" value="Login" class="w3-right button"/>
-		</form>
-	</div>
+		<h1 class="w3-allerta text-center">Makeup Store Application</h1>
 	
-	<div class="w3-half w3-card w3-margin w3-padding">
-		<h3>Not a Member Yet?</h3>
-		<form method = "post" action="RegisterUser">
-			<input type="submit" value="Register" class="w3-right button"/>
-		</form>
-	</div>
-	
-	<div class="w3-half w3-margin w3-padding"><br><br><br></div>
-	
-<footer>
-	<p>Natalia Palej&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Student No: A00279259<br>
-	Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
-</footer>
+        <div class="col-md-6 w3-card w3-margin">
+                <div class="w3-margin w3-padding card-body">
+                    <h3>Log In:</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="email" class="label">Email:</label>
+                            <input type="text" name="owner_email" class="form-control inputText" id="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password" class="label">Password</label>
+                            <input type="password" name="password" class="form-control inputText" id="password" required>
+                        </div>
+
+                        <input type="submit" value="Login" id="btnLogin" class="button-login"/>
+                    </form>
+                </div>
+            </div>
+
+		<div class="row">
+            <div class="col-md-12">
+                <br><br><br>
+            </div>
+        </div>
+
+		<div class="col-md-6 w3-card w3-margin">
+                <div class="w3-margin w3-padding">
+                    <h3>Not a Member Yet?</h3>
+                    <form>
+                        <input type="submit" value="Register" class="button-login"/>
+                    </form>
+                </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <br><br><br>
+            </div>
+        </div>
+    </div>
+
+    <footer class="text-center">
+        <p>Natalia Palej  |  Student No: A00279259<br>
+            Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
+    </footer>
 </body>
+
 </html>
