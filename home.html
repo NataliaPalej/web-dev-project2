@@ -1,0 +1,115 @@
+<html>
+
+<head>
+    <title>A00279259 Natalia Palej</title>
+    <meta charset="UTF-8">
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- JavaScript Links -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="script/jquery-3.6.1.min.js"></script>
+    <script src="script/main.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .background {
+            background-image: url("pics/home.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+    </style>
+</head>
+
+<body class="background">
+    <div class="container-fluid text-center">
+        <!-- Makeup Store Application Header -->
+        <h1 class="center w3-allerta">Makeup Store Application</h1>
+
+        <!-- Nav Bar -->
+        <nav class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <!-- When screen is small, make the navbar smaller and display dropdown options -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Makeup Application</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="home.html">Home</a></li>
+                        <li><a href="index.html">Products</a></li>
+                        <li><a href="settings.html">Settings</a></li>
+                        <li><a href="logout.html">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Home Content -->
+        <div class="container w3-card w3-padding my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-sm-10 col-xs-12 w3-padding">
+                    <h2 class="raleway text-center">Home Page</h2><br><br>
+                    <p>Welcome to the <strong>Makeup Store Application</strong></p>
+                    <p>This application is created by using a combination of <strong>Bootstrap</strong> and <strong>W3</strong> responsive design, while enhancing the User Interface with <strong>jQuery DataTables</strong> to display data in a lovely way.</p>
+                    <p>There are also some <strong>Modal</strong> windows to enhance the application and display content in a "pop-up" way.</p>
+                    <p>Feel free to walk through the application and test its design and functionality.</p>
+
+                    <!-- Trigger modal for Disclaimer -->
+                    <button type="button" class="btn btn-danger btn-lg" data-toggle="modal"
+                        data-target="#myDisclaimer">Disclaimer</button>
+                </div>
+            </div>
+        </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myDisclaimer" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title alert-danger w3-margin w3-padding"><strong>Disclaimer</strong></h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert-info">
+                    <p>Makeup Products used in this application have been taken from official websites and official information have been used.</p>
+                    <p>Makeup Products pictures have been taken from cultbeauty.ie or beautybay.com.</p>
+                    <p>Background images have been downloaded from freepik.com.</p>
+                    <p>Some of the designs were taken from w3schools.com</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="text-center">
+    <div class="container">
+        <p>Natalia Palej   |   Student No: A00279259<br>
+            Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
+            </div>
+    </footer>
+
+</body>
+</html>
