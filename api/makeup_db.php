@@ -288,4 +288,18 @@ function deleteUser($userID) {
 	}
 }
 
+
+function authenticateUser($email){
+	$query = "SELECT email, password FROM users WHERE userID = '$email'";
+    try {
+		global $db;
+		$users = $db->query($query);  
+		$user = $users->fetch(PDO::FETCH_ASSOC);
+        header("Content-Type: application/json", true);
+        echo json_encode($user);
+    } catch(PDOException $e) {
+        echo '{"error":{"message":"User email doesnt exist.","details":"' . $e->getMessage() . '"}}';
+    }
+}
+
 ?>

@@ -57,3 +57,4 @@ INSERT INTO `users` VALUES
 (null, "Lidia", "admin4", "Lidia", "Dadal", "Galway", "087 677 9899", "LidiaDadal@gmail.com"), 
 (null, "Kasia", "admin5", "Kasia", "Blue", "Tullamore", "086 112 3343", "KasiaBlue@gmail.com"), 
 (null, "Dominik", "admin6", "Dominik", "Blue", "Tullamore", "086 555 7878", "DominikBlue@gmail.com");
+(null, "admin", "admin", "admin", "admin", "admin", "admin", "admin", "admin");

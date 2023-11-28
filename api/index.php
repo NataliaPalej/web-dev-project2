@@ -35,6 +35,12 @@ $app->put('/users/:userID', 'updateUser');
 $app->delete('/users/:userID', 'deleteUser');
 
 
+/**
+login
+**/
+$app->get('/authenticate', 'authenticateUser');
+
+
 
 $app->run();
 ?>
