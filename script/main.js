@@ -417,12 +417,12 @@ var deleteUser = function () {
         url: userURL + '/' + loggedInUser.userID,
         success: function (data, textStatus, jqXHR) {
             console.log("success : deleteUser() \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " deleted.");
-            alert("success : deleteUser() \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + "was deleted.");
+            alert("success : deleteUser() \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " was deleted.\nYou will be redirected to login page now.");
+            window.location.href = 'login.html';
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : deleteUser() " + textStatus);
             alert("error : deleteUser() " + textStatus);
-            findAll();
         }
     });
 };
@@ -559,10 +559,17 @@ $(document).ready(function () {
     });
 
     // DELETE user
-    $('#btnDeleteUser').click(function () {
-        deleteUser();
-        console.log("#btnDeleteUser : clicked");
-        return false;
+    $('#openDeleteModal').click(function () {
+        // Show the delete confirmation modal
+        console.log("success : openDeleteModal clicked")
+        $('#deleteModal').modal('show');
     });
+
+    // Event handler for confirm delete button in the modal
+    $('#deleteUserBtn').click(function () {
+        // Delete user when confirmed
+        deleteUser();
+    });
+
 });
 

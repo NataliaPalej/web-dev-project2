@@ -184,3 +184,7 @@ input[type="submit"]:hover {
 		display: none; /* Hide columns on small screens */
 	}
 };
+
+.custom-bg {
+	background-color: rgba(255, 255, 255, 50%);
+}
