@@ -305,7 +305,6 @@ var addUser = function () {
         data: formToJSON(),
         success: function (data, textStatus, jqXHR) {
             console.log("success : User added");
-            //$('#btnDelete').show();
             $('#userID').val(data.id);
             findAll();
         },
@@ -317,9 +316,10 @@ var addUser = function () {
 
 // GET user
 var getUser = function () {
+    var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
     $.ajax({
         type: 'GET',
-        url: userURL,
+        url: userURL + '/' + loggedInUser.userID,
         data: userToJSON(),
         // call renderList to display all rows from db
         success: renderUser
@@ -331,7 +331,7 @@ var renderUsers = function (data) {
     console.log("renderUsers() loading...");
     var list = data.users;
     $.each(list, function (index, users) {
-        $('#table_body').append(
+        $('#allUsersTable').append(
             '<tr><td>' + users.userID +
             '</td><td>' + users.username +
             '</td><td>' + users.password +
@@ -344,47 +344,63 @@ var renderUsers = function (data) {
         );
     });
     console.log("success : renderUsers() loaded");
-    $('#userTable').dataTable();   // dataTable() will render in the same format as products with search field
+    //$('#userTable').dataTable();   // dataTable() will render in the same format as products with search field
 };
-
-// GET user by email
-// var getByEmail = function (email) {
-//     console.log("getByEmail() " + email + " : called");
-//     $.ajax({
-//         type: 'GET',
-//         url: userURL + '/' + email,
-//         dataType: "application/json",
-//         success: function (data) {
-//             console.log("success : getByEmail()" + data);
-//             currentUser = data;
-//             renderUser(loggedInUser);
-//         }
-//     });
-// };
 
 // Render details for one user in settings.html
-var renderUser = function () {
-    var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+var renderUser = function (data) {
+    var loggedInUser = JSON.parse(data);
     console.log("renderUser() : called");
     console.log("renderUser() : " + loggedInUser);
-    console.log("renderUser() typeof : " + typeof(loggedInUser));
-        var row = $('<tr>');
-        row.append('<td>' + loggedInUser.userID + '</td>');
-        row.append('<td>' + loggedInUser.username + '</td>');
-        row.append('<td>' + loggedInUser.password + '</td>');
-        row.append('<td>' + loggedInUser.email + '</td>');
-        row.append('<td>' + loggedInUser.firstName + '</td>');
-        row.append('<td>' + loggedInUser.lastName + '</td>');
-        row.append('<td>' + loggedInUser.address + '</td>');
-        row.append('<td>' + loggedInUser.phoneNo + '</td>');
-
-        console.log("renderUser(): fetching image");
-        row.append('<td><img src="pics/' + loggedInUser.image + '" alt="' + loggedInUser.username + '"width="100" height="100"></img></td>');
-        // Append the row to the tbody
-        $('#userDetailsBody').append(row);
-    //$('#userTable').dataTable();
+    console.log("renderUser() typeof : " + typeof (loggedInUser));
+    var row = $('<tr>');
+    row.append('<td id="userID">' + loggedInUser.userID + '</td>');
+    row.append('<td><input type="text" id="username" value="' + loggedInUser.username + '"style="width: 80px"</td>');
+    row.append('<td><input type="text" id="password" value="' + loggedInUser.password + '"style="width: 80px"</td>');
+    row.append('<td><input type="text" id="email" value="' + loggedInUser.email + '"style="width: 80px"</td>');
+    row.append('<td><input type="text" id="firstName" value="' + loggedInUser.firstName + '"style="width: 80px"</td>');
+    row.append('<td><input type="text" id="lastName" value="' + loggedInUser.lastName + '"style="width: 80px"</td>');
+    row.append('<td><input type="text" id="address" value="' + loggedInUser.address + '"style="width: 80px"</td>');
+    row.append('<td><input type="text" id="phoneNo" value="' + loggedInUser.phoneNo + '"style="width: 80px"</td>');
+    console.log("renderUser(): fetching image");
+    row.append('<td><img src="pics/' + loggedInUser.image + '" alt="' + loggedInUser.username + '"width="100" height="100"></img></td>');
+    // Append the row to the tbody
+    $('#userDetailsBody').append(row);
     console.log("success : renderUser() loaded");
 };
+
+// UPDATE user by ID
+var updateUser = function () {
+    var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    console.log("updateUser(id) : called");
+    $.ajax({
+        type: 'PUT',
+        contentType: "application/json",
+        url: userURL + '/' + loggedInUser.userID,
+        data: userToJSON(),
+        success: function (data, textStatus, jqXHR) {
+            console.log("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
+            alert("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("error : updateUser(id)\n " + textStatus);
+        }
+    });
+};
+
+// RESET table row for user in settings.html
+var resetUserDetails = function(){
+    console.log("success : resetUserDetails() called")
+    $('#userID').val("");
+    $('#username').val("");
+    $('#password').val("");
+    $('#email').val("");
+    $('#firstName').val("");
+    $('#lastName').val("");
+    $('#address').val("");
+    $('#phoneNo').val("");
+    $('#picture').attr('src', "");
+}
 
 
 
@@ -424,59 +440,6 @@ var userToJSON = function () {
         "image": $('#picture').attr('src')
     });
 };
-
-var updateEmail = function () {
-    $.ajax({
-        type: 'PUT',
-        contentType: "application/json",
-        url: userURL + '/' + loggedInUser.email,
-        dataType: 'json',
-        success: function (data, textStatus, jqXHR) {
-            console.log("success: User email was updated");
-            alert("success: User email was updated");
-            // Reload user details after update
-            renderUser(loggedInUser.email);
-            console.log("updateEmail() : after : " + loggedInUser);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error: updateEmail(): " + textStatus);
-        }
-    })
-};
-
-var updateUsername = function (newUsername) {
-    var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-    console.log("Logged in user details: " + loggedInUser);
-    if (loggedInUser) {
-        var email = loggedInUser.email;
-        console.log("Email from the logged in user: " + email);
-    } else {
-    console.log("User details not yet retrieved.");
-    }
-
-    var userID = $('#userID').val();
-    console.log("updateUsername userID: " + userID);
-    
-    $.ajax({
-        type: 'PUT',
-        contentType: 'application/json',
-        url: userURL + '/' + userID,
-        dataType: 'json',
-        data: { username: newUsername }, // Send the new username in
-        success: function (data, textStatus, jqXHR) {
-            console.log("success: User username was updated");
-            alert("success: User username was updated");
-            // Reload user details after update
-            renderUser(loggedInUser.email);
-            console.log("updateUsername() : after : " + loggedInUser);
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error: updateUsername(): " + textStatus + '\n' + errorThrown);
-        }
-    });
-};
-
-
 
 
 /******************************
@@ -581,80 +544,19 @@ $(document).ready(function () {
     findAll();
     getUser();
 
-
-
     /************************
      *                      *
      *     USER BUTTONS     *
      *                      *
      ************************/
 
-    // Show/hide update form - user account
-    $("#showEmailBtn").click(function () {
-        $("#updateEmailBtn").toggle(function () {
-            if ($(this).is(":visible")) {
-                console.log("showEmailBtn: called");
-                var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-                console.log("Logged in user details: " + loggedInUser);
-            }
-        });
-    });
-
-    // Show/hide update form - user account
-    $("#showUsernameBtn").click(function () {
-        $("#updateUsernameBtn").toggle(function () {
-            if ($(this).is(":visible")) {
-                console.log("showUsernameBtn: called");
-                var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-                console.log("Logged in user details: " + loggedInUser);
-                var email = loggedInUser.email;
-                console.log("Email from the logged in user: " + email);
-            }
-        });
-    });
-
-    // Show/hide update form - user account
-    $("#showPasswordBtn").click(function () {
-        $("#updatePasswordBtn").toggle(function () {
-            if ($(this).is(":visible")) {
-                console.log("showPasswordBtn: called");
-                var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-                console.log("Logged in user details: " + loggedInUser);
-            }
-        });
-    });
-
-    // UPDATE Username
-    $('#saveUsername').click(function (event) {
-        event.preventDefault(); // prevent default form submission
-        console.log("#saveUsername : clicked");
-        var newUsername = $('#username').val();
-        if (newUsername !== '') {
-            console.log("#saveUsername : New username - " + newUsername);
-            updateUsername(newUsername);
-        } else {
-            console.log("error: #saveUsername");
-        }
-    });
-
-    // UPDATE Email
-    $('#saveEmail').click(function () {
-        console.log("#saveEmail : clicked");
-        if (loggedInUser != null) {
-            console.log("#saveEmail : called")
-            updateEmail(loggedInUser.email);
-        } else {
-            console.log("error : #saveEmail")
-        }
-    });
-
     // UPDATE Password
-    $('#savePassword').click(function () {
-        console.log("#savePassword : clicked");
+    $('#updateUser').click(function () {
+        console.log("#updateUser : clicked");
         if ($('#userID').val() == '') {
             updateUser();
         } else {
-            console.log("error : #savePassword")
+            console.log("error : #updateUser")
         }
         return false;
     });

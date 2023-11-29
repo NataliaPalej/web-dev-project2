@@ -108,7 +108,7 @@
                                         <th>First Name</th>
                                         <th>Last Name</th>
                                         <th>Address</th>
-                                        <th>Phone Number</th>
+                                        <th>Phone No</th>
                                         <th>Picture</th>
                                     </tr>
                                 </thead>
@@ -116,50 +116,8 @@
                                     <!-- JQuery handles table entry from database here -->
                                 </tbody>
                             </table>
-                        </div>
-
-                        <label for="userID" class="label">Enter your ID here:</label>
-                        <input type="text" class="inputText" id="userID">
-                        <button type="submit" class="button btn-success w3-margin" style="width: 200px;"
-                            id="showEmailBtn">Update Email</button>
-                        <button type="submit" class="button btn-success w3-margin" style="width: 200px;"
-                            id="showUsernameBtn">Update Username</button>
-                        <button type="submit" class="button btn-success w3-margin" style="width: 200px;"
-                            id="showPasswordBtn">Update Password</button>
-                            
-                        <!-- Update Username Form -->
-                        <div>
-                            <form id="updateUsernameBtn" style="display: none;">
-                                <div class="form-group">
-                                    <label for="username" class="label">Username</label>
-                                    <input type="text" class="form-control inputText" id="username">
-                                </div>
-                                <!-- Save Button -->
-                                <button type="submit" class="button" id="saveUsername">Save</button>
-                            </form>
-                        </div>
-
-                        <div>
-                            <form id="updateEmailBtn" style="display: none;">
-                                <div class="form-group">
-                                    <label for="email" class="label">Email</label>
-                                    <input type="email" class="form-control inputText" id="email">
-                                </div>
-                                <!-- Save Button -->
-                                <button type="submit" class="button" id="saveEmail">Save</button>
-                            </form>
-                        </div>
-
-                        <div>
-                            <form id="updatePasswordBtn" style="display: none;">
-                                <div class="form-group">
-                                    <label for="password" class="label">Password</label>
-                                    <input type="password" class="form-control inputText" id="password">
-                                </div>
-                                <!-- Save Button -->
-                                <button type="submit" class="button" id="savePassword">Save</button>
-                            </form>
-                        </div>
+                        </div> 
+                        <button type="submit" class="button" id="updateUser">Save</button>
                     </div>
 
                     <!-- Delete -->
