@@ -313,18 +313,18 @@ function authenticateUser($email = null, $password = null) {
             header("Content-Type: application/json", true);
             echo json_encode($user);
         } else {
-			$app->response->setStatus(401); // Unauthorized status code
+            $app->response->setStatus(401); // Unauthorized status code
             echo '{"error":{"message":"Invalid email or password."}}';
         }
     } catch (PDOException $e) {
-		$app->response->setStatus(500); // Internal Server Error status code
+        $app->response->setStatus(500); // Internal Server Error status code
         echo '{"error":{"message":"An error occurred.","details":"' . $e->getMessage() . '"}}';
     }
 }
 
 
 function getUserByEmail($email){
-	$query = "SELECT * FROM users WHERE userID = '$email'";
+	$query = "SELECT * FROM users WHERE email = '$email'";
     try {
 		global $db;
 		$users = $db->query($query);  
@@ -335,5 +335,70 @@ function getUserByEmail($email){
         echo '{"error":{"message":"User email doesnt exist.","details":"' . $e->getMessage() . '"}}';
     }
 }
+
+
+function updateEmail($email){
+	global $app;
+	global $db;
+	$request = $app->request();
+	$users = json_decode($request->getBody());
+	$email = $users->email;
+	$query = "UPDATE users SET 
+		  email = '$email'
+		  WHERE email = $email";
+	
+	try{
+		$result = $db->prepare($query);
+		$result->execute();
+		$app->response->headers->set('Content-Type', 'application/json');
+		echo '{"Success":{"message": "User email updated successfully."}}';	
+	} catch (PDOException $e){
+		$app->response->headers->set('Content-Type', 'application/json');
+		echo '{"error":{"message":"Could not update user.","details":"' . $e->getMessage() . '"}}';
+	}
+}
+
+
+function updateUsername($id) {
+    global $app;
+    global $db;
+    $request = $app->request();
+    $users = json_decode($request->getBody());
+    $username = $users->username;
+
+    $query = "UPDATE users SET username = '$username' WHERE userID = '$id'";
+
+    try {
+        $result = $db->prepare($query);
+		$result->execute();
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo '{"Success":{"message": "User username updated successfully."}}';
+    } catch (PDOException $e) {
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo '{"error":{"message":"Could not update user.","details":"' . $e->getMessage() . '"}}';
+    }
+}
+
+function updatePassword($email){
+	global $app;
+	global $db;
+	$request = $app->request();
+	$users = json_decode($request->getBody());
+	$password = $users->password;
+	$query = "UPDATE users SET 
+		  password = '$password'
+		  WHERE email = $email";
+	
+	try{
+		$result = $db->prepare($query);
+		$result->execute();
+		$app->response->headers->set('Content-Type', 'application/json');
+		echo '{"Success":{"message": "User password updated successfully."}}';	
+	} catch (PDOException $e){
+		$app->response->headers->set('Content-Type', 'application/json');
+		echo '{"error":{"message":"Could not update user.","details":"' . $e->getMessage() . '"}}';
+	}
+}
+
 
 ?>

@@ -42,8 +42,14 @@ $app->get('/authenticate', 'authenticateUser');;
 /**
 get user by email for update purposes
 **/
-$app->get('/user/:email', 'getUserByEmail');
+$app->get('/user/getByEmail/:email', 'getUserByEmail');
 
+/**
+update user
+**/
+$app->put('/updateUsername/:userID', 'updateUsername');
+$app->put('/user/:userEmail', 'updateEmail');
+$app->put('/user/:userEmail', 'updatePassword');
 
 
 $app->run();
