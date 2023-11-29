@@ -176,7 +176,6 @@ input[type="submit"]:hover {
 	opacity: 80%;
 }
 
-
 /* Media query for small screens */
 @media (max-width: 900px) {
 	#productTable th, #productTable td:nth-child(4), #productTable td:nth-child(5),
@@ -184,7 +183,3 @@ input[type="submit"]:hover {
 		display: none; /* Hide columns on small screens */
 	}
 };
-
-.custom-bg {
-	background-color: rgba(255, 255, 255, 50%);
-}
