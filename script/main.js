@@ -229,7 +229,7 @@ var renderList = function (data) {
         row.append('<td>' + products.stock + '</td>');
         row.append('<td>' + products.onSale + '</td>');
         row.append('<td>' + products.discontinued + '</td>');
-        row.append('<td><img src="pics/' + products.picture + '" alt="' + products.productName + '" width="100" height="100"></td>');
+        row.append('<td><img src="pics/products/' + products.picture + '" alt="' + products.productName + '" width="100" height="100"></td>');
 
         // Append the row to the tbody
         $('#productsBody').append(row);
@@ -340,7 +340,7 @@ var renderUsers = function (data) {
             '</td><td>&euro;' + users.address +
             '</td><td>' + users.phoneNo +
             '</td><td>' + users.email +
-            '</td><td><img src="pics/' + users.image + '" alt="' + users.firstName + '" width="100" height="100"></td></tr>'
+            '</td><td><img src="pics/users' + users.image + '" alt="' + users.firstName + '" width="100" height="100"></td></tr>'
         );
     });
     console.log("success : renderUsers() loaded");
@@ -356,7 +356,7 @@ var renderUser = function (data) {
     console.log(loggedInUser.userID + " " + loggedInUser.username);
 
     // Auto populate user details into the input fields in settings.html page
-    $('#image').attr('src', 'pics/' + loggedInUser.image);
+    $('#image').attr('src', 'pics/users/' + loggedInUser.image);
     $('#userID').text(loggedInUser.userID);
     $('#username').val(loggedInUser.username);
     $('#email').val(loggedInUser.email);
