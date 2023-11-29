@@ -184,16 +184,3 @@ input[type="submit"]:hover {
 		display: none; /* Hide columns on small screens */
 	}
 };
-
-.nav-pills {
-	display: flex;
-	flex-direction: column;
-	width: 200px;
-}
-
-.menubtn{
-	border-radius: 5px;
-	background-color: white;
-	opacity: 0.85;
-	margin-top: 1%;
-}

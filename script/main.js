@@ -353,34 +353,35 @@ var renderUser = function (data) {
     console.log("renderUser() : called");
     console.log("renderUser() : " + loggedInUser);
     console.log("renderUser() typeof : " + typeof (loggedInUser));
-    var row = $('<tr>');
-    row.append('<td id="userID">' + loggedInUser.userID + '</td>');
-    row.append('<td><input type="text" id="username" value="' + loggedInUser.username + '"style="width: 80px"</td>');
-    row.append('<td><input type="text" id="password" value="' + loggedInUser.password + '"style="width: 80px"</td>');
-    row.append('<td><input type="text" id="email" value="' + loggedInUser.email + '"style="width: 80px"</td>');
-    row.append('<td><input type="text" id="firstName" value="' + loggedInUser.firstName + '"style="width: 80px"</td>');
-    row.append('<td><input type="text" id="lastName" value="' + loggedInUser.lastName + '"style="width: 80px"</td>');
-    row.append('<td><input type="text" id="address" value="' + loggedInUser.address + '"style="width: 80px"</td>');
-    row.append('<td><input type="text" id="phoneNo" value="' + loggedInUser.phoneNo + '"style="width: 80px"</td>');
-    console.log("renderUser(): fetching image");
-    row.append('<td><img src="pics/' + loggedInUser.image + '" alt="' + loggedInUser.username + '"width="100" height="100"></img></td>');
-    // Append the row to the tbody
-    $('#userDetailsBody').append(row);
+    console.log(loggedInUser.userID + " " + loggedInUser.username);
+
+    // Auto populate user details into the input fields in settings.html page
+    $('#image').attr('src', 'pics/' + loggedInUser.image);
+    $('#userID').text(loggedInUser.userID);
+    $('#username').val(loggedInUser.username);
+    $('#email').val(loggedInUser.email);
+    $('#password').val(loggedInUser.password);
+    $('#firstName').val(loggedInUser.firstName);
+    $('#lastName').val(loggedInUser.lastName);
+    $('#address').val(loggedInUser.address);
+    $('#phoneNo').val(loggedInUser.phoneNo);
+
     console.log("success : renderUser() loaded");
 };
 
 // UPDATE user by ID
 var updateUser = function () {
     var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-    console.log("updateUser(id) : called");
+    console.log("updateUser(id) : called\nUser to update: " + loggedInUser.userID + " " + loggedInUser.username);
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
         url: userURL + '/' + loggedInUser.userID,
         data: userToJSON(),
         success: function (data, textStatus, jqXHR) {
-            console.log("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
-            alert("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
+            console.log("success : updateUser(id) \nUser "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
+            alert("success : updateUser(id) \nUser "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
+            console.log(loggedInUser);
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateUser(id)\n " + textStatus);
@@ -388,7 +389,7 @@ var updateUser = function () {
     });
 };
 
-// RESET table row for user in settings.html
+// RESET table rows for user
 var resetUserDetails = function(){
     console.log("success : resetUserDetails() called")
     $('#userID').val("");
@@ -406,16 +407,17 @@ var resetUserDetails = function(){
 
 // DELETE user
 var deleteUser = function () {
+    var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
     console.log("deleteUser() : called");
-    console.log("User to delete: " + userURL + "/" + $('#userID').val());
+    console.log("deleteUser()\nUser to delete API: " + userURL + "/" + loggedInUser.userID);
 
     $.ajax({
         type: 'DELETE',
         contentType: 'application/json',
-        url: userURL + '/' + $('#userID').val(),
+        url: userURL + '/' + loggedInUser.userID,
         success: function (data, textStatus, jqXHR) {
-            console.log("success : User " + $('#userID').val + " deleted.");
-            alert("success : User " + $('#userID').val + "was deleted.");
+            console.log("success : deleteUser() \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " deleted.");
+            alert("success : deleteUser() \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + "was deleted.");
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : deleteUser() " + textStatus);
@@ -550,15 +552,10 @@ $(document).ready(function () {
      *                      *
      ************************/
 
-    // UPDATE Password
-    $('#updateUser').click(function () {
+    // UPDATE user
+     $('#updateUser').click(function () {
         console.log("#updateUser : clicked");
-        if ($('#userID').val() == '') {
-            updateUser();
-        } else {
-            console.log("error : #updateUser")
-        }
-        return false;
+        updateUser();
     });
 
     // DELETE user
