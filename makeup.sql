@@ -51,10 +51,24 @@ CREATE TABLE `users` (
 );
 
 INSERT INTO `users` VALUES 
-(null, "Lilly", "admin", "Lilly", "Lola", "Athlone", "089 897 3456", "LillyLola@gmail.com"), 
-(null, "Adrian", "admin2", "Adrian", "Black", "Athlone", "089 899 0098", "AdrianBlack@gmail.com"), 
-(null, "Kochatek", "admin3", "Kochatek", "Skarb", "Dublin", "087 111 2366", "KochatekSkarb@gmail.com"), 
-(null, "Lidia", "admin4", "Lidia", "Dadal", "Galway", "087 677 9899", "LidiaDadal@gmail.com"), 
-(null, "Kasia", "admin5", "Kasia", "Blue", "Tullamore", "086 112 3343", "KasiaBlue@gmail.com"), 
-(null, "Dominik", "admin6", "Dominik", "Blue", "Tullamore", "086 555 7878", "DominikBlue@gmail.com");
-(null, "admin", "admin", "admin", "admin", "admin", "admin", "admin", "admin");
+(null, "Lilly", "lilly", "Lilly", "Lola", "Athlone", "089 897 3456", "lilly@gmail.com", "lilly.jpg"), 
+(null, "Adrian", "adrian", "Adrian", "Black", "Athlone", "089 899 0098", "adrian@gmail.com", "adrian.jpg"), 
+(null, "Kochatek", "kochatek", "Kochatek", "Skarb", "Dublin", "087 111 2366", "kochatek@gmail.com", "kochatek.jpg"), 
+(null, "Lidia", "lidia", "Lidia", "Dadal", "Galway", "087 677 9899", "lidia@gmail.com", "lidia.jpg"), 
+(null, "Kasia", "kasia", "Kasia", "Blue", "Tullamore", "086 112 3343", "kasia@gmail.com", "kasia.jpg"), 
+(null, "Dominik", "dominik", "Dominik", "Blue", "Tullamore", "086 555 7878", "dominik@gmail.com", "dominik.jpg"),
+(null, "admin", "admin", "admin", "admin", "admin", "admin", "admin", "admin.jpg");
+
+
+
+select * from products;
+select * from users;
+
+/*delete from users;
+ALTER TABLE users AUTO_INCREMENT = 1;
+INSERT INTO users VALUES (null, "admin", "admin", "admin", "admin", "admin", "admin", "admin", "admin.jpg");
+ALTER TABLE products AUTO_INCREMENT = 1;*/
+
+/*delete from products;
+ALTER TABLE products AUTO_INCREMENT = 1;
+ALTER TABLE products AUTO_INCREMENT = 1;*/

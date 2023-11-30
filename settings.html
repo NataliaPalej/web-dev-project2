@@ -29,12 +29,6 @@
             background-attachment: fixed;
             background-size: cover;
         }
-
-        .nav-pills {
-            display: flex;
-            flex-direction: column;
-            width: 200px;
-        }
     </style>
 
 </head>
@@ -89,30 +83,33 @@
                         <div class="container">
                             <!-- Display Picture -->
                             <div class="w3-row">
-                                    <div class="w3-third w3-container">
-                                        <p class="w3-margin label">Your ID: <span id="userID"></span></p>
-                                        <img id="image" width=300px height=300px class="w3-center w3-margin" src="" alt="">
-                                    </div>
-                                    <div class="w3-twothird w3-container w3-responsive">
-                                        <form>
-                                            <label class="label">Username: </label>
-                                            <input type="text" id="username" class="inputText">
-                                            <label class="label">Email: </label>
-                                            <input type="text" id="email" class="inputText">
-                                            <label class="label">Password: </label>
-                                            <input type="password" id="password" class="inputText">
-                                            <label class="label">First Name: </label>
-                                            <input type="firstName" id="firstName" class="inputText">
-                                            <label class="label">Last Name: </label>
-                                            <input type="lastName" id="lastName" class="inputText">
-                                            <label class="label">Address: </label>
-                                            <input type="address" id="address" class="inputText">
-                                            <label class="label">Phone No: </label>
-                                            <input type="phoneNo" id="phoneNo" class="inputText">
-                                        </form>
-                                    </div>
+                                <div class="w3-third w3-container">
+                                    <p class="w3-margin label">Your ID: <span id="userID"></span></p>
+                                    <img id="image" class="w3-left w3-margin" src="" alt="" style="width:250px">
+                                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="picture" class="inputText">
+                                </div>
+
+                                <div class="w3-twothird w3-container w3-responsive">
+                                    <form>
+                                        <label class="label">Username: </label>
+                                        <input type="text" id="username" class="inputText">
+                                        <label class="label">Email: </label>
+                                        <input type="text" id="email" class="inputText">
+                                        <label class="label">Password: </label>
+                                        <input type="password" id="password" class="inputText">
+                                        <label class="label">First Name: </label>
+                                        <input type="firstName" id="firstName" class="inputText">
+                                        <label class="label">Last Name: </label>
+                                        <input type="lastName" id="lastName" class="inputText">
+                                        <label class="label">Address: </label>
+                                        <input type="address" id="address" class="inputText">
+                                        <label class="label">Phone No: </label>
+                                        <input type="phoneNo" id="phoneNo" class="inputText">
+                                        <button type="submit" class="button-login" id="updateUser">Save</button>    
+                                    </form>
+                                </div>
                             </div>
-                            <button type="submit" class="button-login" id="updateUser">Save</button>    
+
                         </div> 
                     </div>
                     <br><br><br><br><br><br>

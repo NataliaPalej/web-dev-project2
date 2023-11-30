@@ -4,11 +4,7 @@ var loginURL = 'http://localhost/Assessment/Sprint2/api';
 var userURL = 'http://localhost/Assessment/Sprint2/api/user';
 var currentProduct;
 
-/*************************
- *                       *
- *     COMMON METHODS    *
- *                       *
- ************************/
+// LOGIN logic
 var loginUser = function (email, password) {
     $.ajax({
         type: 'GET',
@@ -39,8 +35,18 @@ var loginUser = function (email, password) {
 // LOGOUT button
 var logoutBtn = function () {
     console.log("logoutBtn() : called");
+    sessionStorage.clear(); 
+    console.log("logoutBtn() : session cleared");
     window.location.href = "logout.html";
 };
+
+// REGISTER button
+var registerBtn = function(){
+    console.log("success : registerBtn() : called");
+    window.location.href = "register.html";
+    resetUserDetails();
+    console.log("success : resetUserDetails() called")
+}
 
 /***************************
  *                         *
@@ -280,11 +286,7 @@ var formToJSON = function () {
 
 // Bootstrap accordion to display Description when clicked on it
 $(document).ready(function () {
-    // Add a click event listener to the Description cells
-    $('#productTable tbody').on('click', 'td:nth-child(4)', function () {
-        // Toggle the collapse state of corresponding accordion content
-        $(this).closest('tr').find('.description-accordion').collapse('toggle');
-    });
+    
 });
 
 
@@ -302,13 +304,16 @@ var addUser = function () {
         contentType: 'application/json',
         url: userURL,
         dataType: "json",
-        data: formToJSON(),
+        data: registerToJSON,
         success: function (data, textStatus, jqXHR) {
-            console.log("success : User added");
+            console.log("success : addUser()\nUser " + data.userID + " " + data.firstName + " added successfully.");
+            console.log(data);
+            alert("success : addUser()\nUser " + data.userID + " " + data.firstName + " added successfully.");
             $('#userID').val(data.id);
-            findAll();
+            window.location.href = "login.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
+            alert("error when adding user")
             console.log("error : addUser(): " + textStatus);
         }
     })
@@ -327,25 +332,25 @@ var getUser = function () {
 };
 
 // Render details for ALL users
-var renderUsers = function (data) {
-    console.log("renderUsers() loading...");
-    var list = data.users;
-    $.each(list, function (index, users) {
-        $('#allUsersTable').append(
-            '<tr><td>' + users.userID +
-            '</td><td>' + users.username +
-            '</td><td>' + users.password +
-            '</td><td>' + users.firstName +
-            '</td><td>' + users.lastName +
-            '</td><td>&euro;' + users.address +
-            '</td><td>' + users.phoneNo +
-            '</td><td>' + users.email +
-            '</td><td><img src="pics/users' + users.image + '" alt="' + users.firstName + '" width="100" height="100"></td></tr>'
-        );
-    });
-    console.log("success : renderUsers() loaded");
-    //$('#userTable').dataTable();   // dataTable() will render in the same format as products with search field
-};
+// var renderUsers = function (data) {
+//     console.log("renderUsers() loading...");
+//     var list = data.users;
+//     $.each(list, function (index, users) {
+//         $('#allUsersTable').append(
+//             '<tr><td>' + users.userID +
+//             '</td><td>' + users.username +
+//             '</td><td>' + users.password +
+//             '</td><td>' + users.firstName +
+//             '</td><td>' + users.lastName +
+//             '</td><td>&euro;' + users.address +
+//             '</td><td>' + users.phoneNo +
+//             '</td><td>' + users.email +
+//             '</td><td><img src="pics/users' + users.image + '" alt="' + users.firstName + '" width="100" height="100"></td></tr>'
+//         );
+//     });
+//     console.log("success : renderUsers() loaded");
+//     //$('#userTable').dataTable();   // dataTable() will render in the same format as products with search field
+// };
 
 // Render details for one user in settings.html
 var renderUser = function (data) {
@@ -392,7 +397,6 @@ var updateUser = function () {
 // RESET table rows for user
 var resetUserDetails = function(){
     console.log("success : resetUserDetails() called")
-    $('#userID').val("");
     $('#username').val("");
     $('#password').val("");
     $('#email').val("");
@@ -402,8 +406,6 @@ var resetUserDetails = function(){
     $('#phoneNo').val("");
     $('#picture').attr('src', "");
 }
-
-
 
 // DELETE user
 var deleteUser = function () {
@@ -443,6 +445,24 @@ var userToJSON = function () {
     });
 };
 
+// Register serialize user form fields into JSON
+var registerToJSON = function () {
+    // Construct the JSON object with the image data
+    var userData = {
+        "username": $('#username').val(),
+        "password": $('#password').val(),
+        "firstName": $('#firstName').val(),
+        "lastName": $('#lastName').val(),
+        "address": $('#address').val(),
+        "phoneNo": $('#phoneNo').val(),
+        "email": $('#email').val(),
+        "image": $('#image').val()
+    };
+    var newUser = userData;
+    console.log(newUser);
+    alert("registerToJSON() User JSON created successfully.");
+};
+
 
 /******************************
  *                            *
@@ -451,12 +471,7 @@ var userToJSON = function () {
  *****************************/
 $(document).ready(function () {
 
-    /**********************
-     *                    *
-     *   COMMON BUTTONS   *
-     *                    *
-     **********************/
-
+    // LOGIN
     $('#btnLogin').click(function (e) {
         e.preventDefault();
 
@@ -469,10 +484,20 @@ $(document).ready(function () {
         console.log("success : btnLogin() \n Email: " + email + "\tPassword: " + password);
     });
 
+    // REGISTER user
+    $('#registerUser').click(function (e) {
+        e.preventDefault();
+        registerBtn();
+    });
+
+    // BACK button
+    $('#backBtn').click(function () {
+        history.back();
+    });
+
     // LOGOUT button
     $('#logoutBtn').click(function () {
         logoutBtn();
-        return false;
     });
 
     // Open the logout modal when the button is clicked
@@ -481,76 +506,30 @@ $(document).ready(function () {
         $('#logoutModal').modal('show');
     });
 
-    /*************************
-     *                        *  
-     *     PRODUCT BUTTONS    *
-     *                        *
-     *************************/
-    // Search button ????
-    $('#btnSearch').click(function () {
-        search($('#searchName').val());
-        return false;
+    // Add click event listener to the Description cells
+    $('#productTable tbody').on('click', 'td:nth-child(4)', function () {
+        // Toggle the collapse state of corresponding accordion content
+        $(this).closest('tr').find('.description-accordion').collapse('toggle');
     });
-
-    // Call SEARCH on demand button
-    $('#productName').keypress(function (e) {
-        if (e.which == 13) {
-            search($('#productName').val());
-            e.preventDefault();
-            return false;
-        }
-    });
-
-    // Find By ID button
-    $('#productList a').on("click", function () {
-        findById($(this).data('identity'));
-    });
-    $(document).on("click", '#productList a', function () { findById(this.id); });
-
-    // ADD button
-    $('#btnAddProduct').click(function () {
-        newProduct();
-        return false;
-    });
-
-    // SAVE button
-    $('#btnSaveProduct').click(function () {
-        if ($('#productID').val() == '') {
-            addProduct();
-        } else {
-            updateProduct();
-        }
-        return false;
-    });
-
-    // DELETE button
-    $('#btnDeleteProduct').click(function () {
-        deleteProduct();
-        return false;
-    });
-
-
-    // Reset the form to empty fields
-    $('#productID').val("");
-    $('#productName').val("");
-    $('#productCategory').val("");
-    $('#productDescription').val("");
-    $('#company').val("");
-    $('#price').val("");
-    $('#stock').val("");
-    $('#onSale').val("");
-    $('#discontinued').val("");
-    $('#picture').attr('src', "");
 
     // Call findAll and getUser method
-    findAll();
-    getUser();
+    try {
+        findAll();
+    } catch (error) {
+        console.log("Couldnt  load findAll() products yet.");
+    }
+    try {
+        getUser();
+    } catch (error) {
+        console.log("Couldnt  load getUser() details yet.");
+    }
 
-    /************************
-     *                      *
-     *     USER BUTTONS     *
-     *                      *
-     ************************/
+    // ADD user
+    $('#addUser').click(function (e) {
+        e.preventDefault()
+        console.log("#addUser : clicked");
+        addUser();
+    });
 
     // UPDATE user
      $('#updateUser').click(function () {

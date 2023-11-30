@@ -23,7 +23,6 @@ $app->put('/makeup/:productID', 'updateProduct');
 // Delete product route
 $app->delete('/makeup/:productID', 'deleteProduct');
 
-
 /**
 users table CRUD
 **/
@@ -34,23 +33,10 @@ $app->post('/user', 'addUser');
 $app->put('/user/:userID', 'updateUser');
 $app->delete('/user/:userID', 'deleteUser');
 
-
 /**
 login
 **/
 $app->get('/authenticate', 'authenticateUser');;
-/**
-get user by email for update purposes
-**/
-$app->get('/user/getByEmail/:email', 'getUserByEmail');
-
-/**
-update user
-**/
-$app->put('/updateUsername/:userID', 'updateUsername');
-$app->put('/user/:userEmail', 'updateEmail');
-$app->put('/user/:userEmail', 'updatePassword');
-
 
 $app->run();
 ?>

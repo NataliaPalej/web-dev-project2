@@ -1,0 +1,85 @@
+<html>
+
+<head>
+    <title>Register - A00279259 Natalia Palej</title>
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <!-- Script Links -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="script/jquery.dataTables.js"></script>
+    <script src="script/main.js"></script>
+
+    <style>
+        .background {
+            background-image: url("pics/register.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
+
+</head>
+
+<body class="background">
+    <!-- Makeup Store Application Header -->
+    <div class="text-center">
+        <h1 class="center w3-allerta">Makeup Store Application</h1>
+    </div>
+
+    <!-- Register Content -->
+    <div class="w3-container w3-row">
+        <div class="w3-half" style="opacity: 85%;">
+            <div class="w3-container w3-white w3-margin w3-padding">
+                <h3 class="raleway w3-center">Register</h3>
+                <p class="text-center ">Pop in your details here to register your account.</p>
+                <form id="registerForm">
+                    <input type="text" hidden="true" id="userID">
+                    <label class="label">Username: </label>
+                    <input type="text" id="username" class="inputText">
+                    <label class="label">Email: </label>
+                    <input type="text" id="email" class="inputText">
+                    <label class="label">Password: </label>
+                    <input type="password" id="password" class="inputText">
+                    <label class="label">First Name: </label>
+                    <input type="firstName" id="firstName" class="inputText">
+                    <label class="label">Last Name: </label>
+                    <input type="lastName" id="lastName" class="inputText">
+                    <label class="label">Address: </label>
+                    <input type="address" id="address" class="inputText">
+                    <label class="label">Phone No: </label>
+                    <input type="phoneNo" id="phoneNo" class="inputText">
+                    <label class="label">Picture: </label>
+                    <input type="file" accept="image/jpeg, image/png, image/jpg" id="picture" class="inputText">
+                    <button type="button" class="button-login w3-left" id="backBtn">Back</button>
+                    <input type="submit" class="button-login w3-right" id="addUser">Register</input>
+                </form>
+                
+            </div>
+        </div>
+
+        <div class="w3-half" style="opacity: 85%;">
+            <div class="w3-container w3-white w3-margin w3-padding">
+                <h3 class="raleway w3-center">Already an user?</h3>
+                <p class="text-center w3-margin">Simply click the button below to go to Login screen.</p>
+                <button onclick="location.href = 'login.html';" class="button-login w3-right w3-margin"
+                    id="loginBtn">Login</button>
+            </div>
+        </div>
+    </div>
+
+    <br><br><br><br>
+
+    <footer class="text-center">
+        <p>Natalia Palej | Student No: A00279259<br>
+            Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
+    </footer>
+
+</body>
+
+</html>
