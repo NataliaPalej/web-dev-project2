@@ -49,17 +49,6 @@ var registerBtn = function(){
 }
 
 /****************************************************************************************************/
-// Search product name
-var search = function (productSearch) {
-    // if empty, show all
-    if (productSearch == '') {
-        findAll();
-    } else {
-        // else find by name
-        findByName(productSearch);
-    }
-}
-
 // GET all
 var findAll = function () {
     $.ajax({
@@ -73,66 +62,163 @@ var findAll = function () {
 
 // GET by ID
 var findById = function (id) {
-    console.log("findById() " + id + " : called");
+    console.log("success :findById() called\tSearch for: " + id);
     $.ajax({
         type: 'GET',
         url: rootURL + '/' + id,
         dataType: "json",
-        success: function (data) {
-            $('#btnDelete').show();
-            console.log("success : findById()" + data.name);
-            currentProduct = data;
-            renderDetails(currentProduct);
+        success: function () {
+            console.log("success : findById()" + id);
+            alert("success : findById()" + id);
+            getProduct(id);
+        }, 
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
+            alert("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
         }
     });
 };
 
-// GET by name
-var findByName = function (productSearch) {
-    console.log("findByName() " + productSearch + " : called");
+var findByName = function (productName) {
+    console.log("success : findByName() called\tSearch for: " + productName);
+    console.log("success : findByName() called\tSearch for: " + rootURL + '/searchByName/' + productName);
     $.ajax({
         type: 'GET',
-        url: rootURL + '/searchByName/' + productSearch,
+        url: rootURL + '/searchByName/' + productName,
         dataType: "json",
+        contentType: 'application/json',
         success: function (data) {
-            $('#btnDelete').show();
-            console.log("success : findByName()" + data.name);
-            currentProduct = data;
-            renderDetails(currentProduct);
+            console.log("Searched product:");
+            console.log(data);
+            console.log("success : findByName() " + data.productName);
+            currentProduct = data; // Store the product data in currentProduct
+            renderFindByName();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log("error : findByName()\n" + textStatus + " \n" + errorThrown);
         }
     });
 };
+
+var renderFindByName = function () {
+    console.log("renderFindByName() : called");
+    // Loop through the list to fetch product details
+    currentProduct.forEach((element) => processProduct(element));    
+};
+// 
+function processProduct(element){
+    console.log("myFunction() product name : " + element.productName);
+    $('#productID').text(element.productID);
+    $('#productName').text(element.productName);
+    $('#productCategoy').text(element.productCategory);
+    $('#productDescription').text(element.productDescription);
+    $('#company').text(element.company);
+    $('#price').text("\u20ac" + element.price);
+    $('#stock').text(element.stock);
+    $('#onSale').text(element.onSale);
+    $('#discontinued').text(element.discontinued);
+    console.log("myFunction() : Fetching product images");
+    if (element.picture) {
+        $('#picture').attr('src', 'pics/products/' + element.picture);
+    } else {
+        // Set default image if there is an issue with the corresponding one
+        $('#picture').attr('src', 'pics/default.jpg');
+    }
+}
 
 // GET by category
 var findByCategory = function (productSearch) {
     console.log("findByCategory() " + productSearch + " : called");
     $.ajax({
         type: 'GET',
-        url: rootURL + '/searchByCategory/' + category,
+        url: rootURL + '/searchByCategory/' + productSearch,
         dataType: "json",
-        success: function (data) {
-            $('#btnDelete').show();
-            console.log("success : findByCategory()" + data.name);
-            currentProduct = data;
-            renderDetails(currentProduct);
-        }
+        success: renderCategoryList
     });
+};
+
+// Render details for ALL products
+var renderCategoryList = function (data) {
+    console.log(data);
+    console.log("renderList() loading...");
+    $.each(data, function (index, product) {
+        var row = $('<tr>');
+        row.append('<td>' + product.productID + '</td>');
+        row.append('<td style="font-size: 14px;">' + product.productName + '</td>');
+        row.append('<td>' + product.productCategory + '</td>');
+
+        // Create Description column with accordion to show text when pressed
+        var descriptionColumn = $('<td style="font-size: 11px;">');
+        descriptionColumn.append(
+            '<a class="btn btn-link" data-toggle="collapse" href="#descriptionAccordion' + index + '" role="button" aria-expanded="false" aria-controls="descriptionAccordion' + index + '">Show Description</a>'
+        );
+        descriptionColumn.append(
+            '<div class="collapse description-accordion" id="descriptionAccordion' + index + '">' + product.productDescription + '</div>'
+        );
+        row.append(descriptionColumn);
+
+        row.append('<td>' + product.company + '</td>');
+        row.append('<td>&euro;' + product.price + '</td>');
+        row.append('<td>' + product.stock + '</td>');
+        row.append('<td>' + product.onSale + '</td>');
+        row.append('<td>' + product.discontinued + '</td>');
+        row.append('<td><img src="pics/products/' + product.picture + '" alt="' + product.productName + '" width="100" height="100"></td>');
+        console.log("products " + product.productName);
+        console.log(row);
+        // Append the row to the tbody
+        $('#findByCategoryBody').append(row);
+    });
+
+    console.log("success : renderList() loaded");
+    $('#findByCategoryTable').dataTable();
 };
 
 // GET by company
 var findByCompany = function (productSearch) {
     console.log("findByCompany() " + productSearch + " : called");
+    console.log(rootURL + '/searchByCompany/' + productSearch)
     $.ajax({
         type: 'GET',
-        url: rootURL + '/searchByCompany/' + company,
-        dataType: "json",
-        success: function (data) {
-            $('#btnDelete').show();
-            console.log("success : findByCompany()" + data.name);
-            currentProduct = data;
-            renderDetails(currentProduct);
-        }
+        url: rootURL + '/searchByCompany/' + productSearch,
+        dataType: 'json',
+        success: renderCompanyList
     });
+};
+
+// Render details for ALL products
+var renderCompanyList = function (data) {
+    console.log(data);
+    console.log("renderList() loading...");
+    $.each(data, function (index, product) {
+        var row = $('<tr>');
+        row.append('<td>' + product.productID + '</td>');
+        row.append('<td style="font-size: 14px;">' + product.productName + '</td>');
+        row.append('<td>' + product.productCategory + '</td>');
+
+        // Create Description column with accordion to show text when pressed
+        var descriptionColumn = $('<td style="font-size: 11px;">');
+        descriptionColumn.append(
+            '<a class="btn btn-link" data-toggle="collapse" href="#companyAccordion' + index + '" role="button" aria-expanded="false" aria-controls="companyAccordion' + index + '">Show Description</a>'
+        );
+        descriptionColumn.append(
+            '<div class="collapse description-accordion" id="companyAccordion' + index + '">' + product.productDescription + '</div>'
+        );
+        row.append(descriptionColumn);
+
+        row.append('<td>' + product.company + '</td>');
+        row.append('<td>&euro;' + product.price + '</td>');
+        row.append('<td>' + product.stock + '</td>');
+        row.append('<td>' + product.onSale + '</td>');
+        row.append('<td>' + product.discontinued + '</td>');
+        row.append('<td><img src="pics/products/' + product.picture + '" alt="' + product.productName + '" width="100" height="100"></td>');
+        console.log("products " + product.productName);
+        console.log(row);
+        // Append the row to the tbody
+        $('#findByCompanyBody').append(row);
+    });
+
+    console.log("success : renderList() loaded");
+    $('#findByCompanyTable').dataTable();
 };
 
 // ADD new product with formToJSON to parse into JSON
@@ -229,22 +315,21 @@ var renderList = function (data) {
     $('#productTable').dataTable();
 };
 
-// Render details for searched product
-var renderDetails = function (products) {
+// Render details for findByCategory/findByCompany product
+var renderDetails = function (product) {
     console.log("renderDetails() : called");
-    $('#productID').val(products.productID);
-    $('#productName').val(products.productName);
-    $('#productCategory').val(products.productCategory);
-    $('#productDescription').val(products.productDescription);
-    $('#company').val(products.company);
-    $('#price').val(products.price);
-    $('#stock').val(products.stock);
-    $('#onSale').val(products.onSale);
-    $('#discontinued').val(products.discontinued);
-    console.log("renderDetails() : Fetching images");
-
-    if (products.picture) {
-        $('#picture').attr('src', 'pics/' + products.picture);
+    $('#productID').val(product.productID);
+    $('#productName').val(product.productName);
+    $('#productCategory').val(product.productCategory);
+    $('#productDescription').val(product.productDescription);
+    $('#company').val(product.company);
+    $('#price').val(product.price);
+    $('#stock').val(product.stock);
+    $('#onSale').val(product.onSale);
+    $('#discontinued').val(product.discontinued);
+    console.log("renderDetails() : Fetching product images");
+    if (product.picture) {
+        $('#picture').attr('src', 'pics/' + product.picture);
     } else {
         // Set default image if there is issue with corresponding one
         $('#picture').attr('src', 'pics/default.jpg');
@@ -558,6 +643,51 @@ $(document).ready(function () {
         } else {
             alert("error : searchProductToDelete()\nProduct " + productID + " doesn't exist.");
             console.log("error : searchProductToDelete " + productID + " doesn't exist.");
+        }
+    });
+
+// SEARCH product BY
+$('#searchByName').click(function () {
+    console.log("#searchByName clicked")
+    // Get the product name
+    var productName = $('#productInput').val();
+
+    if (productName != null || productName !== ''){
+        $('#searchByNameTab').show();
+        findByName(productName);
+    } else {
+        alert("error : searchByName()\nProduct " + productName + " doesn't exist.");
+        console.log("error : searchByName " + productName + " doesn't exist.");
+    }
+});
+
+    $('#searchByCategory').click(function () {
+        console.log("#searchByCategory clicked")
+        // Get the product ID
+        var category = $('#categoryInput').val();
+
+        if (category != null || category !== ''){
+            console.log("searchByCategory : " + category);
+            $('#searchByCategoryTab').show();
+            findByCategory(category);
+        } else {
+            alert("error : searchByCategory()\nProduct " + category + " doesn't exist.");
+            console.log("error : searchByCategory " + category + " doesn't exist.");
+        }
+    });
+
+    $('#searchByCompany').click(function () {
+        console.log("#searchByCompany clicked")
+        // Get the product ID
+        var company = $('#companyInput').val();
+
+        if (company != null || company !== ''){
+            console.log("searchByCompany : " + company);
+            $('#searchByCompanyTab').show();
+            findByCompany(company);
+        } else {
+            alert("error : searchByCompany()\nProduct " + company + " doesn't exist.");
+            console.log("error : searchByCategory " + company + " doesn't exist.");
         }
     });
 
