@@ -48,12 +48,7 @@ var registerBtn = function(){
     console.log("success : resetUserDetails() called")
 }
 
-/***************************
- *                         *
- *     PRODUCT METHODS     *
- *                         *
- **************************/
-
+/****************************************************************************************************/
 // Search product name
 var search = function (productSearch) {
     // if empty, show all
@@ -140,15 +135,6 @@ var findByCompany = function (productSearch) {
     });
 };
 
-// ADD new product
-var newProduct = function () {
-    console.log("newProduct() : called")
-    $('#btnDelete').hide();
-    currentProduct = {};
-    // Display empty form
-    renderDetails(currentProduct);
-};
-
 // ADD new product with formToJSON to parse into JSON
 var addProduct = function () {
     console.log("addProduct() : called");
@@ -160,12 +146,10 @@ var addProduct = function () {
         data: formToJSON(),
         success: function (data, textStatus, jqXHR) {
             console.log("success : Product added");
-            $('#btnDelete').show();
-            $('#productID').val(data.id);
-            findAll();
+            alert("success : addProduct()\nProduct " + data.productName + " " + data.company + " added successfully.");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error : addProduct(): " + textStatus);
+            console.log("error : addProduct()\n" + textStatus);
         }
     })
 }
@@ -284,6 +268,7 @@ var formToJSON = function () {
     });
 };
 
+/****************************************************************************************************/
 // ADD user
 var addUser = function () {
     console.log("addUser() : called");
@@ -301,14 +286,13 @@ var addUser = function () {
             window.location.href = "login.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("error : requestData() details:\n" + requestData);
+            alert("error : addUser()\nrequestData() details:\n" + requestData);
             console.log("Type of requestData(): " + typeof(requestData));
-            alert("error : addUser() when adding user")
+            alert("error : addUser() when adding user" + textStatus + "\n" + errorThrown);
             console.log("error : addUser()\n" + textStatus + " \n" + errorThrown);
         }
     });
 };
-
 
 // GET user
 var getUser = function () {
@@ -438,7 +422,7 @@ var userToJSON = function () {
 
 // Register serialize user form fields into JSON
 var registerToJSON = function () {
-    // Construct the JSON object with the image data
+    // Construct the JSON object
     var userData = {
         //"userID": $('#userID').val(),
         "username": $('#username').val(),
@@ -451,16 +435,12 @@ var registerToJSON = function () {
         "image": null,
     };
     var newUser = userData;
-    alert("registerToJSON() User JSON created successfully.");
+    console.log("success : registerToJSON() called.");
     return newUser;
 };
 
 
-/******************************
- *                            *
- *      WHEN DOM IS READY     *
- *                            *
- *****************************/
+/**********************    D      O       M     R   E   A  D   Y    **********************************/
 $(document).ready(function () {
 
     // LOGIN
@@ -541,6 +521,9 @@ $(document).ready(function () {
         // Delete user when confirmed
         deleteUser();
     });
+
+    /****************************************************************************************************/
+
 
 });
 
