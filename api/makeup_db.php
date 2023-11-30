@@ -237,8 +237,11 @@ function addUser(){
 		$db->exec($query);
 		$users->userID = $db->lastInsertId();
 		$app->response->headers->set('Content-Type', 'application/json');
-		echo '{"Success":{"message": "User added successfully."}}';
-		echo json_encode($users);
+		// Fixed the below as it was causing unexpected non whispace character 
+		// echo '{"Success":{"message": "User added successfully."}}';
+		// echo json_encode($users);
+		// Moving the above into one JSON response 
+		echo json_encode(array("success" => array("message" => "User added successfully", "user" => $users)));
 	} catch (PDOException $e) {
 		$app->response->headers->set('Content-Type', 'application/json');
 		echo '{"error":{"message":"Could not add user.","details":"' . $e->getMessage() . '"}}';

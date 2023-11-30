@@ -284,40 +284,31 @@ var formToJSON = function () {
     });
 };
 
-// Bootstrap accordion to display Description when clicked on it
-$(document).ready(function () {
-    
-});
-
-
-
-/************************
- *                      *
- *     USER METHODS     * 
- *                      *
- ************************/
 // ADD user
 var addUser = function () {
     console.log("addUser() : called");
+    var requestData = registerToJSON();
+    
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
         url: userURL,
         dataType: "json",
-        data: registerToJSON,
-        success: function (data, textStatus, jqXHR) {
-            console.log("success : addUser()\nUser " + data.userID + " " + data.firstName + " added successfully.");
-            console.log(data);
-            alert("success : addUser()\nUser " + data.userID + " " + data.firstName + " added successfully.");
-            $('#userID').val(data.id);
+        data: JSON.stringify(requestData),
+        success: function (textStatus, jqXHR) {
+            console.log("success : addUser()\nUser " + requestData.firstName + " " + requestData.lastName + " added successfully.");
+            alert("success : addUser()\nUser " + requestData.firstName + " " + requestData.lastName + " added successfully.");
             window.location.href = "login.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("error when adding user")
-            console.log("error : addUser(): " + textStatus);
+            alert("error : requestData() details:\n" + requestData);
+            console.log("Type of requestData(): " + typeof(requestData));
+            alert("error : addUser() when adding user")
+            console.log("error : addUser()\n" + textStatus + " \n" + errorThrown);
         }
-    })
-}
+    });
+};
+
 
 // GET user
 var getUser = function () {
@@ -449,6 +440,7 @@ var userToJSON = function () {
 var registerToJSON = function () {
     // Construct the JSON object with the image data
     var userData = {
+        //"userID": $('#userID').val(),
         "username": $('#username').val(),
         "password": $('#password').val(),
         "firstName": $('#firstName').val(),
@@ -456,11 +448,11 @@ var registerToJSON = function () {
         "address": $('#address').val(),
         "phoneNo": $('#phoneNo').val(),
         "email": $('#email').val(),
-        "image": $('#image').val()
+        "image": null,
     };
     var newUser = userData;
-    console.log(newUser);
     alert("registerToJSON() User JSON created successfully.");
+    return newUser;
 };
 
 
@@ -485,7 +477,7 @@ $(document).ready(function () {
     });
 
     // REGISTER user
-    $('#registerUser').click(function (e) {
+    $('#registerBtn').click(function (e) {
         e.preventDefault();
         registerBtn();
     });
