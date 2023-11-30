@@ -318,13 +318,11 @@
         <h3 class="raleway w3-center">Delete Product</h3>
         <p class="text-center w3-margin">Here you can delete products that you no longer stock.</p>
         <label class="label">Enter Product ID: </label>
-        <input class="inputText" type="text" id="prouctID">
+        <input class="inputText" type="text" id="productToDelete">
         <button type="button" class="btn btn-success w3-right" id="searchProductToDelete">Search</button>
 
         <div class="container" id="deleteProductForm" style="display:none;">
-            <p>Product ID: </p>
-            <p>Product Name: </p>
-            <button id="openDeleteProductModal" class="button w3-margin" style="width: 200px;" data-toggle=modal
+            <button id="openDeleteProductModal" class="button btn-danger w3-margin" style="width: 200px;" data-toggle=modal
                 data-target="#deleteProductModal">Delete</button>
         </div>
     </div>

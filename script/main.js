@@ -35,13 +35,13 @@ var loginUser = function (email, password) {
 // LOGOUT button
 var logoutBtn = function () {
     console.log("logoutBtn() : called");
-    sessionStorage.clear(); 
+    sessionStorage.clear();
     console.log("logoutBtn() : session cleared");
     window.location.href = "logout.html";
 };
 
 // REGISTER button
-var registerBtn = function(){
+var registerBtn = function () {
     console.log("success : registerBtn() : called");
     window.location.href = "register.html";
     resetUserDetails();
@@ -69,9 +69,8 @@ var findById = function (id) {
         dataType: "json",
         success: function () {
             console.log("success : findById()" + id);
-            alert("success : findById()" + id);
             getProduct(id);
-        }, 
+        },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
             alert("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
@@ -94,7 +93,7 @@ var findByName = function (productName) {
             currentProduct = data; // Store the product data in currentProduct
             renderFindByName();
         },
-        error: function(jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : findByName()\n" + textStatus + " \n" + errorThrown);
         }
     });
@@ -103,10 +102,10 @@ var findByName = function (productName) {
 var renderFindByName = function () {
     console.log("renderFindByName() : called");
     // Loop through the list to fetch product details
-    currentProduct.forEach((element) => processProduct(element));    
+    currentProduct.forEach((element) => processProduct(element));
 };
 // 
-function processProduct(element){
+function processProduct(element) {
     console.log("myFunction() product name : " + element.productName);
     $('#productID').text(element.productID);
     $('#productName').text(element.productName);
@@ -240,23 +239,24 @@ var addProduct = function () {
     })
 }
 
-// DELETE with ID
-var deleteProduct = function () {
+// DELETE product
+var deleteProduct = function (id) {
     console.log("deleteProduct() : called");
-    console.log("Product to delete: " + rootURL + "/" + $('#productID').val());
+    console.log("Product to delete: " + id);
+    console.log(rootURL + '/' + id)
 
     $.ajax({
         type: 'DELETE',
         contentType: 'application/json',
-        url: rootURL + '/' + $('#productID').val(),
+        url: rootURL + '/' + id,
         success: function (data, textStatus, jqXHR) {
-            console.log("success : Product " + $('#productID').val + " deleted.");
-            alert("success : Product " + $('#productID').val + "was deleted.");
+            console.log("success : Product " + id + " deleted.");
+            alert("success : Product " + id + " deleted.");
+            window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : deleteProduct() " + textStatus);
             alert("error : DeleteProduct() " + textStatus);
-            findAll();
         }
     });
 };
@@ -358,7 +358,7 @@ var formToJSON = function () {
 var addUser = function () {
     console.log("addUser() : called");
     var requestData = registerToJSON();
-    
+
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -372,7 +372,7 @@ var addUser = function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("error : addUser()\nrequestData() details:\n" + requestData);
-            console.log("Type of requestData(): " + typeof(requestData));
+            console.log("Type of requestData(): " + typeof (requestData));
             alert("error : addUser() when adding user" + textStatus + "\n" + errorThrown);
             console.log("error : addUser()\n" + textStatus + " \n" + errorThrown);
         }
@@ -444,8 +444,8 @@ var updateUser = function () {
         url: userURL + '/' + loggedInUser.userID,
         data: userToJSON(),
         success: function (data, textStatus, jqXHR) {
-            console.log("success : updateUser(id) \nUser "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
-            alert("success : updateUser(id) \nUser "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
+            console.log("success : updateUser(id) \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
+            alert("success : updateUser(id) \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
             console.log(loggedInUser);
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -455,7 +455,7 @@ var updateUser = function () {
 };
 
 // RESET table rows for user
-var resetUserDetails = function(){
+var resetUserDetails = function () {
     console.log("success : resetUserDetails() called")
     $('#username').val("");
     $('#password').val("");
@@ -593,7 +593,7 @@ $(document).ready(function () {
     });
 
     // UPDATE user
-     $('#updateUser').click(function () {
+    $('#updateUser').click(function () {
         console.log("#updateUser : clicked");
         updateUser();
     });
@@ -612,7 +612,7 @@ $(document).ready(function () {
     });
 
     /****************************************************************************************************/
-    
+
     // SEARCH product to update
     $('#searchProductBtn').click(function () {
         console.log("#searchProductBtn clicked")
@@ -620,7 +620,7 @@ $(document).ready(function () {
         var productID = $('#productID').val();
 
         // Perform the search logic here (e.g., check if the product exists)
-        if (productID != null || productID !== ''){
+        if (productID != null || productID !== '') {
             console.log("searchProductBtn : product to update " + productID);
             $('#updateProductForm').show();
         } else {
@@ -633,40 +633,42 @@ $(document).ready(function () {
     $('#searchProductToDelete').click(function () {
         console.log("#searchProductToDelete clicked")
         // Get the product ID
-        var productID = $('#productID').val();
+        var productToDelete = $('#productToDelete').val();
 
         // Perform the search logic here (e.g., check if the product exists)
-        if (productID != null || productID !== ''){
-            alert("success : product found");
-            console.log("searchProductToDelete : product to delete " + productID);
+        if (productToDelete != null || productToDelete !== '') {
+            console.log("searchProductToDelete : product to delete " + productToDelete);
             $('#deleteProductForm').show();
+            $('#deleteProduct').click(function () {
+                deleteProduct(productToDelete);
+            })
         } else {
-            alert("error : searchProductToDelete()\nProduct " + productID + " doesn't exist.");
-            console.log("error : searchProductToDelete " + productID + " doesn't exist.");
+            alert("error : searchProductToDelete()\nProduct " + productToDelete + " doesn't exist.");
+            console.log("error : searchProductToDelete " + productToDelete + " doesn't exist.");
         }
     });
 
-// SEARCH product BY
-$('#searchByName').click(function () {
-    console.log("#searchByName clicked")
-    // Get the product name
-    var productName = $('#productInput').val();
+    // SEARCH product BY
+    $('#searchByName').click(function () {
+        console.log("#searchByName clicked")
+        // Get the product name
+        var productName = $('#productInput').val();
 
-    if (productName != null || productName !== ''){
-        $('#searchByNameTab').show();
-        findByName(productName);
-    } else {
-        alert("error : searchByName()\nProduct " + productName + " doesn't exist.");
-        console.log("error : searchByName " + productName + " doesn't exist.");
-    }
-});
+        if (productName != null || productName !== '') {
+            $('#searchByNameTab').show();
+            findByName(productName);
+        } else {
+            alert("error : searchByName()\nProduct " + productName + " doesn't exist.");
+            console.log("error : searchByName " + productName + " doesn't exist.");
+        }
+    });
 
     $('#searchByCategory').click(function () {
         console.log("#searchByCategory clicked")
         // Get the product ID
         var category = $('#categoryInput').val();
 
-        if (category != null || category !== ''){
+        if (category != null || category !== '') {
             console.log("searchByCategory : " + category);
             $('#searchByCategoryTab').show();
             findByCategory(category);
@@ -681,7 +683,7 @@ $('#searchByName').click(function () {
         // Get the product ID
         var company = $('#companyInput').val();
 
-        if (company != null || company !== ''){
+        if (company != null || company !== '') {
             console.log("searchByCompany : " + company);
             $('#searchByCompanyTab').show();
             findByCompany(company);
@@ -690,9 +692,5 @@ $('#searchByName').click(function () {
             console.log("error : searchByCategory " + company + " doesn't exist.");
         }
     });
-
-
-
-    
 });
 
