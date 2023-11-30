@@ -445,6 +445,7 @@ $(document).ready(function () {
 
     // LOGIN
     $('#btnLogin').click(function (e) {
+        console.log("btnLogin clicked");
         e.preventDefault();
 
         // Retrieve email and password from login page
@@ -458,23 +459,26 @@ $(document).ready(function () {
 
     // REGISTER user
     $('#registerBtn').click(function (e) {
+        console.log("registerBtn clicked");
         e.preventDefault();
         registerBtn();
     });
 
     // BACK button
     $('#backBtn').click(function () {
+        console.log("logoutBtn clicked");
         history.back();
     });
 
     // LOGOUT button
     $('#logoutBtn').click(function () {
+        console.log("logoutBtn clicked");
         logoutBtn();
     });
 
     // Open the logout modal when the button is clicked
     $('#openLogoutModal').click(function () {
-        console.log("success : openLogoutModal clicked")
+        console.log("openLogoutModal clicked")
         $('#logoutModal').modal('show');
     });
 
@@ -512,7 +516,7 @@ $(document).ready(function () {
     // DELETE user
     $('#openDeleteModal').click(function () {
         // Show the delete confirmation modal
-        console.log("success : openDeleteModal clicked")
+        console.log("openDeleteModal clicked")
         $('#deleteModal').modal('show');
     });
 
@@ -523,7 +527,42 @@ $(document).ready(function () {
     });
 
     /****************************************************************************************************/
+    
+    // SEARCH product to update
+    $('#searchProductBtn').click(function () {
+        console.log("#searchProductBtn clicked")
+        // Get the product ID
+        var productID = $('#productID').val();
+
+        // Perform the search logic here (e.g., check if the product exists)
+        if (productID != null || productID !== ''){
+            console.log("searchProductBtn : product to update " + productID);
+            $('#updateProductForm').show();
+        } else {
+            alert("error : searchProductBtn()\nProduct " + productID + " doesn't exist.");
+            console.log("error : searchProductBtn() " + productID + " doesn't exist.");
+        }
+    });
+
+    // SEARCH product to delete
+    $('#searchProductToDelete').click(function () {
+        console.log("#searchProductToDelete clicked")
+        // Get the product ID
+        var productID = $('#productID').val();
+
+        // Perform the search logic here (e.g., check if the product exists)
+        if (productID != null || productID !== ''){
+            alert("success : product found");
+            console.log("searchProductToDelete : product to delete " + productID);
+            $('#deleteProductForm').show();
+        } else {
+            alert("error : searchProductToDelete()\nProduct " + productID + " doesn't exist.");
+            console.log("error : searchProductToDelete " + productID + " doesn't exist.");
+        }
+    });
 
 
+
+    
 });
 

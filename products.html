@@ -1,0 +1,309 @@
+<html>
+<head>
+	<title>Products - A00279259 Natalia Palej</title>
+	<!-- Fonts -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@200&display=swap">
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+	<link rel="stylesheet" href="css/styles.css" />
+	<link rel="stylesheet" href="css/jquery.dataTables.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="script/jquery.dataTables.js"></script>
+	<script src="script/main.js"></script>
+    
+
+	<style>
+        .background {
+            background-image: url("pics/.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
+</head>
+
+<body class="background">
+	<!-- Makeup Store Application Header -->
+	<div class="text-center">
+		<h1 class="center w3-allerta">Makeup Store Application</h1>
+	</div>
+
+	<!-- Nav Bar -->
+	<nav class="navbar navbar-inverse">
+		<div class="container">
+			<div class="navbar-header">
+				<!-- When screen is small, make the navbar smaller and display dropdown options -->
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Makeup Application</a>
+			</div>
+
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="home.html">Home</a></li>
+					<li><a href="index.html">Products</a></li>
+					<li><a href="settings.html">Settings</a></li>
+                    <li><a href="products.html">Admin</a></li>
+					<li><a id="openLogoutModal" data-toggle=modal data-target="#logoutModal" style="cursor: pointer;">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+<!-- Logout Modal -->
+<div class="modal fade" id="logoutModal" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h1 class="modal-title w3-red">Logout</h1>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-center">
+				<p>Are you sure you want to log out?</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="button btn-secondary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="button btn-danger" id="logoutBtn">Logout</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+	<h3 class="container">ADMIN OPTIONS</h3>
+
+    <!-- Products Content -->
+    <div class="w3-row">
+        <!-- Products MENU -->
+        <div class="w3-container w3-center">
+            <button class="nav-link btn" data-toggle="pill" href="#searchProductTab">Search</button>
+            <button class="nav-link btn" data-toggle="pill" href="#addProductTab">Add</button>
+            <button class="nav-link btn" data-toggle="pill" href="#updateProductTab">Update</button>
+            <button class="nav-link btn" data-toggle="pill" href="#deleteProductTab">Delete</button>
+        </div>
+    </div>
+
+        <!-- Different TABS -->
+        <div class="col-sm-12">
+            <div class="tab-content">
+                <!-- ADD -->
+                <div id="searchProductTab" class="tab-pane fade in active w3-white w3-margin w3-padding">
+                    <h3 class="raleway w3-center">Search for Product</h3>
+                    <p class="text-center w3-margin">Here you can search for a product by:</p>
+
+                    <div class="w3-row">
+                        <div class="w3-container w3-onethird">
+                            <div>
+                                <label class="label">Enter Product Name: </label>
+                                <input class="inputText" type="text" id="productInput">
+                                <button type="button" class="btn btn-success w3-right" id="searchByName" style="inline-size: auto;">Search</button>
+                            </div>
+        
+                            <div>
+                                <label class="label">Enter Product Company: </label>
+                                <input class="inputText" type="text" id="companyInput">
+                                <button type="button" class="btn btn-success w3-right" id="searchByCompany">Search</button>
+                            </div>
+        
+                            <div>
+                                <label class="label">Enter Product Category: </label>
+                                <input class="inputText" type="text" id="categoryInput">
+                                <button type="button" class="btn btn-success w3-right" id="searchByCategory">Search</button>
+                            </div> 
+                        </div>
+
+                        <div class="w3-container w3-twothird">
+                            <div class="w3-container w3-responsive" id="searchProductForm" style="display:none;"> 
+                                <form>
+                                    <label class="label">Name: </label>
+                                    <input type="text" id="productName" class="inputText">
+        
+                                    <label class="label">Category:</label>
+                                    <input type="text" id="productCategoy" class="inputText">
+        
+                                    <label class="label">Description:</label>
+                                    <input type="text" id="productDescription" class="inputText">
+        
+                                    <label class="label">Company:</label>
+                                    <input type="text" id="company" class="inputText">
+        
+                                    <label class="label">Price:</label>
+                                    <input type="number" id="price" class="inputText" placeholder="&euro;" min="0" step="0.01">
+        
+                                    <label class="label">Stock:</label>
+                                    <input type="number" id="stock" class="inputText" min="0" step="1">
+        
+                                    <label class="label">Sale:</label>
+                                    <select id="onSale" class="inputText">
+                                        <option value="Select" disabled selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+        
+                                    <label class="label">Discontinued:</label>
+                                    <select id="discontinued" class="inputText">
+                                        <option value="Select" disabled selected>Select</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="no">No</option>
+                                    </select>
+        
+                                    <label class="label">Picture:</label>
+                                    <input type="picture" id="picture" class="inputText" placeholder="file_name.jpg">
+        
+                                    <button type="submit" class="btn btn-success" id="searchProduct">Search</button>    
+                                </form>
+                            </div>
+                        </div>
+                    </div>       
+                </div>
+
+
+                <!-- ADD -->
+                <div id="addProductTab" class="tab-pane fade w3-white w3-margin w3-padding">
+                    <h3 class="raleway w3-center">Add Product</h3>
+                    <p class="text-center w3-margin">Here you can add new product to your inventory.</p>
+
+                    <div class="w3-container w3-responsive">
+                        <form>
+                            <label class="label">Name: </label>
+                            <input type="text" id="productName" class="inputText">
+
+                            <label class="label">Category:</label>
+                            <input type="text" id="productCategoy" class="inputText">
+
+                            <label class="label">Description:</label>
+                            <input type="text" id="productDescription" class="inputText">
+
+                            <label class="label">Company:</label>
+                            <input type="text" id="company" class="inputText">
+
+                            <label class="label">Price:</label>
+                            <input type="number" id="price" class="inputText" placeholder="&euro;" min="0" step="0.01">
+
+                            <label class="label">Stock:</label>
+                            <input type="number" id="stock" class="inputText" min="0" step="1">
+
+                            <label class="label">Sale:</label>
+                            <select id="onSale" class="inputText">
+                                <option value="Select" disabled selected>Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+
+                            <label class="label">Discontinued:</label>
+                            <select id="discontinued" class="inputText">
+                                <option value="Select" disabled selected>Select</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+
+                            <label class="label">Picture:</label>
+                            <input type="picture" id="picture" class="inputText" placeholder="file_name.jpg">
+                            <button type="submit" class="button-login" id="addProduct">Add</button>    
+                        </form>
+                    </div>    
+                          
+                </div>
+                
+
+                <!-- UPDATE -->
+                <div id="updateProductTab" class="tab-pane fade w3-white w3-margin w3-padding">
+                    <h3 class="raleway w3-center">Update Product Details</h3>
+                    <p class="text-center w3-margin">Here you can make changes to products.</p>
+                    <label class="label">Enter Product ID: </label>
+                    <input class="inputText" type="text" id="prouctID">
+                    <button type="button" class="btn btn-success w3-right" id="searchProductBtn">Search</button>
+
+                    <div class="container" id="updateProductForm" style="display:none;">
+                        <!-- Display Picture -->
+                        <div class="w3-row">
+                            <div class="w3-third w3-container">
+                                <p class="w3-margin label">Product ID: <span id="productID"></span></p>
+                                <!-- Possibly will need to change the id to productPicture -->
+                                <img id="picture" class="w3-left w3-margin" src="" alt="" style="width:250px">
+                                <input type="text" id="picture" class="inputText" placeholder="file-name.jpg">
+                            </div>
+
+                            <div class="w3-twothird w3-container w3-responsive">
+                                <form>
+                                    <label class="label">Name: </label>
+                                    <input type="text" id="productName" class="inputText">
+                                    <label class="label">Category:</label>
+                                    <input type="text" id="productCategoy" class="inputText">
+                                    <label class="label">Description:</label>
+                                    <input type="text" id="productDescription" class="inputText">
+                                    <label class="label">Company:</label>
+                                    <input type="text" id="company" class="inputText">
+                                    <label class="label">Price:</label>
+                                    <input type="text" id="price" class="inputText">
+                                    <label class="label">Stock:</label>
+                                    <input type="text" id="stock" class="inputText">
+                                    <label class="label">Sale:</label>
+                                    <input type="text" id="onSale" class="inputText">
+                                    <label class="label">Discontinued:</label>
+                                    <input type="text" id="discontinued" class="inputText">
+                                    <button type="submit" class="button-login" id="updateProduct">Save</button>    
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DELETE -->
+                <div id="deleteProductTab" class="tab-pane fade w3-white w3-margin w3-padding">
+                    <h3 class="raleway w3-center">Delete Product</h3>
+                    <p class="text-center w3-margin">Here you can delete products that you no longer stock.</p>
+                    <label class="label">Enter Product ID: </label>
+                    <input class="inputText" type="text" id="prouctID">
+                    <button type="button" class="btn btn-success w3-right" id="searchProductToDelete">Search</button>
+
+                    <div class="container" id="deleteProductForm" style="display:none;">
+                        <p>Product ID: </p>
+                        <p>Product Name: </p>
+                        <button id="openDeleteProductModal" class="button w3-margin" style="width: 200px;" data-toggle=modal data-target="#deleteProductModal">Delete</button>
+                    </div>
+                </div>
+                <br><br><br><br><br>
+
+                <!-- Delete Product Modal -->
+                <div class="modal fade" id="deleteProductModal" role="dialog"
+                    aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title w3-red">Delete Product</h1>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body text-center">
+                                <p>Are you sure you want to delete the product?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="button btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="button btn-danger" id="deleteProduct">Yes, Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	<footer class="text-center">
+		<p>Natalia Palej | Student No: A00279259<br>
+			Email: <a href="mailto:A00279259@student.tus.ie">A00279259@student.tus.ie</a></p>
+	</footer>
+
+</body>
+</html>
