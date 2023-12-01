@@ -228,45 +228,45 @@
         <p class="text-center w3-margin">Here you can add new product to your inventory.</p>
 
         <div class="w3-container w3-responsive">
-            <form>
+            <form id="registerProductForm">
                 <label class="label">Name: </label>
-                <input type="text" id="productName" class="inputText">
+                <input type="text" id="inputName" class="inputText">
 
                 <label class="label">Category:</label>
-                <input type="text" id="productCategoy" class="inputText">
+                <input type="text" id="inputCategory" class="inputText">
 
                 <label class="label">Description:</label>
-                <input type="text" id="productDescription" class="inputText">
+                <input type="text" id="inputDescription" class="inputText">
 
                 <label class="label">Company:</label>
-                <input type="text" id="company" class="inputText">
+                <input type="text" id="inputCompany" class="inputText">
 
                 <label class="label">Price:</label>
-                <input type="number" id="price" class="inputText" placeholder="&euro;" min="0" step="0.01">
+                <input type="text" id="inputPrice" class="inputText" placeholder="&euro;" min="0" step="0.01">
 
                 <label class="label">Stock:</label>
-                <input type="number" id="stock" class="inputText" min="0" step="1">
+                <input type="text" id="inputStock" class="inputText" min="0" step="1">
 
                 <label class="label">Sale:</label>
-                <select id="onSale" class="inputText">
+                <select id="inputOnSale" class="inputText">
                     <option value="Select" disabled selected>Select</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option type="text" value="yes">Yes</option>
+                    <option type="text" value="no">No</option>
                 </select>
 
                 <label class="label">Discontinued:</label>
-                <select id="discontinued" class="inputText">
+                <select id="inputDiscontinued" class="inputText">
                     <option value="Select" disabled selected>Select</option>
-                    <option value="yes">Yes</option>
-                    <option value="no">No</option>
+                    <option type="text" value="yes">Yes</option>
+                    <option type="text" value="no">No</option>
                 </select>
 
                 <label class="label">Picture:</label>
-                <input type="picture" id="picture" class="inputText" placeholder="file_name.jpg">
-                <button type="submit" class="button-login" id="addProduct">Add</button>
+                <input type="text" id="inputPicture" class="inputText" placeholder="file_name.jpg">
+                <button type="button" class="button-login w3-left" id="backBtn">Back</button>
+                <button type="submit" class="button btn-success w3-right" id="addProduct">Add</button>
             </form>
         </div>
-
     </div>
 
 

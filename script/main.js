@@ -223,21 +223,29 @@ var renderCompanyList = function (data) {
 // ADD new product with formToJSON to parse into JSON
 var addProduct = function () {
     console.log("addProduct() : called");
+    var requestData = productToJSON();
+    console.log(requestData.productName);
+    console.log(rootURL);
+    console.log(requestData);
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
         url: rootURL,
         dataType: "json",
-        data: formToJSON(),
-        success: function (data, textStatus, jqXHR) {
-            console.log("success : Product added");
-            alert("success : addProduct()\nProduct " + data.productName + " " + data.company + " added successfully.");
+        data: JSON.stringify(requestData),
+        success: function (textStatus, jqXHR) {
+            console.log("success : addProduct()\Product " + requestData.productName + " added successfully.");
+            alert("success : addProduct()\Product " + requestData.productName + " added successfully.");
+            window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error : addProduct()\n" + textStatus);
+            alert("error : addProduct()\nrequestData() details:\n" + requestData);
+            console.log("Type of requestData(): " + typeof (requestData));
+            alert("error : addProduct() when adding product" + textStatus + "\n" + errorThrown);
+            console.log("error : addProduct()\n" + textStatus + " \n" + errorThrown);
         }
-    })
-}
+    });
+};
 
 // DELETE product
 var deleteProduct = function (id) {
@@ -337,6 +345,30 @@ var renderDetails = function (product) {
 };
 
 // Serialize form fields into JSON
+var productToJSON = function () {
+    // Construct the JSON object using jQuery's .val() method
+    var productData = {
+        "productName": $('#inputName').val(),
+        "productCategory": $('#inputCategory').val(),
+        "productDescription": $('#inputDescription').val(),
+        "company": $('#inputCompany').val(),
+        "price": $('#inputPrice').val(),
+        "stock": $('#inputStock').val(),
+        "onSale": $('#inputOnSale').val(),
+        "discontinued": $('#inputDiscontinued').val(),
+        "picture": $('#inputPicture').val(),
+    };
+    // Convert price and stock to numbers
+    productData.price = parseFloat(productData.price);
+    productData.stock = parseInt(productData.stock, 10);
+
+    var newProduct = productData;
+    console.log("success : productToJSON() called.");
+    alert(JSON.stringify(newProduct));
+    return newProduct;
+};
+
+// Serialize form fields into JSON
 var formToJSON = function () {
     var productID = $('#productID').val();
     return JSON.stringify({
@@ -349,7 +381,7 @@ var formToJSON = function () {
         "stock": $('#stock').val(),
         "onSale": $('#onSale').val(),
         "discontinued": $('#discontinued').val(),
-        "picture": $('#picture').attr('src')
+        "picture": $('#picture').val()
     });
 };
 
@@ -509,7 +541,6 @@ var userToJSON = function () {
 var registerToJSON = function () {
     // Construct the JSON object
     var userData = {
-        //"userID": $('#userID').val(),
         "username": $('#username').val(),
         "password": $('#password').val(),
         "firstName": $('#firstName').val(),
@@ -517,7 +548,7 @@ var registerToJSON = function () {
         "address": $('#address').val(),
         "phoneNo": $('#phoneNo').val(),
         "email": $('#email').val(),
-        "image": null,
+        "image": $('#image').val(),
     };
     var newUser = userData;
     console.log("success : registerToJSON() called.");
@@ -691,6 +722,13 @@ $(document).ready(function () {
             alert("error : searchByCompany()\nProduct " + company + " doesn't exist.");
             console.log("error : searchByCategory " + company + " doesn't exist.");
         }
+    });
+
+    // ADD product button
+    $('#addProduct').click(function (e) {
+        e.preventDefault()
+        console.log("#addProduct : clicked");
+        addProduct();
     });
 });
 
