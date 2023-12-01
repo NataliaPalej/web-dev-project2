@@ -19,7 +19,7 @@
 
     <style>
         .background {
-            background-image: url("pics/.jpg");
+            background-image: url("pics/face2.jpg");
             background-repeat: no-repeat;
             background-attachment: fixed;
             background-size: cover;
@@ -96,7 +96,7 @@
     <!-- Different TABS -->
     <div class="tab-content">
         <!-- SEARCH for product BY -->
-        <div id="searchProductTab" class="tab-pane fade in active w3-white w3-margin w3-padding">
+        <div id="searchProductTab" class="tab-pane fade w3-white w3-margin w3-padding">
             <h3 class="raleway w3-center">Search for Product</h3>
             <p class="text-center w3-margin">Here you can search for a product by:</p>
 
@@ -122,8 +122,8 @@
                 </div>
 
                 <!-- SEARCH BY NAME -->
-                <div class="w3-container w3-half">
-                    <div class="w3-container w3-responsive" id="searchByNameTab" style="display:none;">
+                <div class="w3-container w3-half ">
+                    <div class="w3-container w3-responsive w3-animate-right" id="searchByNameTab" style="display:none;">
                         <div style="display: flex; align-items: center; margin-top: 5%;">
                         <div style="margin-right: 20px;">
                             <img id="picture" class="w3-margin" src="" alt="" style="width:150px">
@@ -222,7 +222,7 @@
             </div>
   
         </div>
-    </div>
+    
 
     <!-- ADD -->
     <div id="addProductTab" class="tab-pane fade w3-white w3-margin w3-padding">
@@ -322,12 +322,46 @@
         <input class="inputText" type="text" id="productToDelete">
         <button type="button" class="btn btn-success w3-right" id="searchProductToDelete">Search</button>
 
+        <div class="container" id="deleteProductTable" style="display:none;">
+            <!-- Display Picture -->
+            
+        </div>
+
         <div class="container" id="deleteProductForm" style="display:none;">
+            <div class="w3-row">
+                <div class="w3-third w3-container">
+                    <p class="w3-margin label">Product ID: <span id="deleteProductID"></span></p>
+                    <!-- Possibly will need to change the id to productPicture -->
+                    <img id="deletePicture" class="w3-left w3-margin" src="" alt="" style="width:250px">
+                </div>
+
+            <div class="w3-twothird w3-container w3-responsive">
+                <form>
+                    <label class="label">Name: </label>
+                            <input type="text" id="deleteName" class="inputText">
+                            <label class="label">Category:</label>
+                            <input type="text" id="deleteeCategory" class="inputText">
+                            <label class="label">Description:</label>
+                            <input type="text" id="deleteDescription" class="inputText">
+                            <label class="label">Company:</label>
+                            <input type="text" id="deleteCompany" class="inputText">
+                            <label class="label">Price:</label>
+                            <input type="text" id="deletePrice" class="inputText">
+                            <label class="label">Stock:</label>
+                            <input type="text" id="deleteStock" class="inputText">
+                            <label class="label">Sale:</label>
+                            <input type="text" id="deleteOnSale" class="inputText">
+                            <label class="label">Discontinued:</label>
+                            <input type="text" id="deleteDiscontinued" class="inputText">
+                </form>
+            </div>
             <button id="openDeleteProductModal" class="button btn-danger w3-margin" style="width: 200px;" data-toggle=modal
                 data-target="#deleteProductModal">Delete</button>
+            </div>
         </div>
     </div>
-    <br><br><br><br><br>
+</div>
+    <br><br>
 
     <!-- Delete Product Modal -->
     <div class="modal fade" id="deleteProductModal" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">

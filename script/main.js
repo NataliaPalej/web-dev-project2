@@ -264,6 +264,40 @@ var addProduct = function () {
     });
 };
 
+// GET product to delete
+var getProductToDelete = function (id) {
+    console.log("success :findById() called\tSearch for: " + id);
+    console.log(rootURL + '/' + id);
+    $.ajax({
+        type: 'GET',
+        url: rootURL + '/' + id,
+        dataType: "json",
+        success: function (product) {
+            console.log(JSON.stringify(product))
+            renderProductToDelete(product); 
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
+            alert("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
+        }
+    });
+};
+
+// Render details for one product in your HTML form
+var renderProductToDelete = function (product) {
+    console.log("renderProductToUpdate: called");
+    $('#deleteProductID').text(product.productID);
+    $("#deleteName").val(product.productName);
+    $("#deleteeCategory").val(product.productCategory);
+    $("#deleteDescription").val(product.productDescription);
+    $("#deleteCompany").val(product.company);
+    $("#deletePrice").val(product.price);
+    $("#deleteStock").val(product.stock);
+    $("#deleteOnSale").val(product.onSale);
+    $("#deleteDiscontinued").val(product.discontinued);
+    $('#deletePicture').attr('src', 'pics/products/' + product.picture);
+};
+
 // DELETE product
 var deleteProduct = function (id) {
     console.log("deleteProduct() : called");
@@ -679,12 +713,15 @@ $(document).ready(function () {
     // SEARCH product to delete
     $('#searchProductToDelete').click(function () {
         console.log("#searchProductToDelete clicked")
+        $('#deleteProductForm').show()
+
         // Get the product ID
         var productToDelete = $('#productToDelete').val();
+        getProductToDelete(productToDelete);
 
         if (productToDelete != null || productToDelete !== '') {
             console.log("searchProductToDelete : product to delete " + productToDelete);
-            $('#deleteProductForm').show();
+            
             $('#deleteProduct').click(function () {
                 deleteProduct(productToDelete);
             })
@@ -770,4 +807,37 @@ $(document).ready(function () {
         console.log("#updateProduct : clicked");
         updateProduct();
     });
+
+    // Show/hide tabs based on button clicks
+    // $('#searchProductTab').click(function () {
+    //     console.log("searchProductTab clicked")
+    //     $('#searchProductTab').show();
+    //     $('#addProductTab').hide();
+    //     $('#updateProductTab').hide();
+    //     $('#deleteProductTab').hide();
+    // });
+
+    // $('#addProductTab').click(function () {
+    //     console.log("addProductTab clicked")
+    //     $('#searchProductTab').hide();
+    //     $('#addProductTab').show();
+    //     $('#updateProductTab').hide();
+    //     $('#deleteProductTab').hide();
+    // });
+
+    // $('#updateProductTab').click(function () {
+    //     console.log("updateProductTab clicked")
+    //     $('#searchProductTab').hide();
+    //     $('#addProductTab').hide();
+    //     $('#updateProductTab').show();
+    //     $('#deleteProductTab').hide();
+    // });
+
+    // $('#deleteProductTab').click(function () {
+    //     console.log("deleteProductTab clicked")
+    //     $('#searchProductTab').hide();
+    //     $('#addProductTab').hide();
+    //     $('#updateProductTab').hide();
+    //     $('#deleteProductTab').show();
+    // });
 });
