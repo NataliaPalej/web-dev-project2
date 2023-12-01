@@ -15,6 +15,7 @@ var loginUser = function (email, password) {
             console.log("Success Data:", data);
             // If status 200 user auth and can be redirected to home.html
             if (jqXHR.status === 200) {
+                alert("Loging successful")
                 console.log("Login successful!");
                 sessionStorage.setItem('loggedInUser', data);
                 window.location.href = 'home.html';
@@ -224,9 +225,7 @@ var renderCompanyList = function (data) {
 var addProduct = function () {
     console.log("addProduct() : called");
     var requestData = productToJSON();
-    console.log(requestData.productName);
     console.log(rootURL);
-    console.log(requestData);
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -234,8 +233,8 @@ var addProduct = function () {
         dataType: "json",
         data: JSON.stringify(requestData),
         success: function (textStatus, jqXHR) {
-            console.log("success : addProduct()\Product " + requestData.productName + " added successfully.");
-            alert("success : addProduct()\Product " + requestData.productName + " added successfully.");
+            console.log("success : addProduct()\nProduct " + requestData.productName + " added successfully.");
+            alert("success : addProduct()\nProduct " + requestData.productName + " added successfully.");
             window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -422,27 +421,6 @@ var getUser = function () {
         success: renderUser
     });
 };
-
-// Render details for ALL users
-// var renderUsers = function (data) {
-//     console.log("renderUsers() loading...");
-//     var list = data.users;
-//     $.each(list, function (index, users) {
-//         $('#allUsersTable').append(
-//             '<tr><td>' + users.userID +
-//             '</td><td>' + users.username +
-//             '</td><td>' + users.password +
-//             '</td><td>' + users.firstName +
-//             '</td><td>' + users.lastName +
-//             '</td><td>&euro;' + users.address +
-//             '</td><td>' + users.phoneNo +
-//             '</td><td>' + users.email +
-//             '</td><td><img src="pics/users' + users.image + '" alt="' + users.firstName + '" width="100" height="100"></td></tr>'
-//         );
-//     });
-//     console.log("success : renderUsers() loaded");
-//     //$('#userTable').dataTable();   // dataTable() will render in the same format as products with search field
-// };
 
 // Render details for one user in settings.html
 var renderUser = function (data) {

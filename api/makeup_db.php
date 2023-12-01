@@ -299,8 +299,8 @@ function deleteUser($userID) {
 }
 
 function authenticateUser($email = null, $password = null) {
-    global $app;
     global $db;
+	global $app;
 
     // If parameters are not provided, use $app->request to access request parameters
     if ($email === null) {
