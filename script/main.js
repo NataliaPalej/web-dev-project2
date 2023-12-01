@@ -62,21 +62,40 @@ var findAll = function () {
 };
 
 // GET by
-var findById = function (id) {
+var getProduct = function (id) {
     console.log("success :findById() called\tSearch for: " + id);
+    console.log(rootURL + '/' + id);
     $.ajax({
         type: 'GET',
         url: rootURL + '/' + id,
         dataType: "json",
-        success: function () {
-            console.log("success : findById()" + id);
-            getProduct(id);
+        success: function (product) {
+            console.log(JSON.stringify(product))
+            renderProductToUpdate(product); 
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
             alert("Couldn't findById()\n" + textStatus + "\n" + errorThrown);
         }
     });
+};
+
+// Render details for one product in your HTML form
+var renderProductToUpdate = function (product) {
+    alert("renderProductToUpdate")
+    console.log("renderProductToUpdate: called");
+    alert(product)
+    $('#productID').val(product.productID);
+    $("#updateName").val(product.productName);
+    $("#updateCategory").val(product.productCategory);
+    $("#updateDescription").val(product.productDescription);
+    $("#updateCompany").val(product.company);
+    $("#updatePrice").val(product.price);
+    $("#updateStock").val(product.stock);
+    $("#updateOnSale").val(product.onSale);
+    $("#updateDiscontinued").val(product.discontinued);
+    $('#pictureView').attr('src', 'pics/products/' + product.picture);
+    $('#pictureInput').val(product.picture);
 };
 
 var findByName = function (productName) {
@@ -270,12 +289,12 @@ var deleteProduct = function (id) {
 
 // Update product by ID
 var updateProduct = function (id) {
-    console.log("updateProduct() : called");
+    console.log("updateProduct(id) : called" + id);
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
         url: rootURL + '/' + id,
-        data: formToJSON(),
+        data: formToJSON(), // You'll need to implement formToJSON according to your HTML form
         success: function (data, textStatus, jqXHR) {
             console.log("success : Product updated " + id);
             alert("success : Product updated " + id);
@@ -336,12 +355,14 @@ var renderDetails = function (product) {
     $('#discontinued').val(product.discontinued);
     console.log("renderDetails() : Fetching product images");
     if (product.picture) {
-        $('#picture').attr('src', 'pics/' + product.picture);
+        $('#picture').attr('src', 'pics/products/' + product.picture);
     } else {
         // Set default image if there is issue with corresponding one
-        $('#picture').attr('src', 'pics/default.jpg');
+        $('#picture').attr('src', 'pics/products/default.jpg');
     }
 };
+
+
 
 // Serialize form fields into JSON
 var productToJSON = function () {
@@ -704,11 +725,24 @@ $(document).ready(function () {
         }
     });
 
-    // ADD product button
+    // ADD product
     $('#addProduct').click(function (e) {
         e.preventDefault()
         console.log("#addProduct : clicked");
         addProduct();
+    });
+
+    $('#searchProductBtn').click(function () {
+        console.log("#searchProductBtn : clicked");
+        var productID = $("#productIDInput").val();
+        alert("ProductID  "+  productID + " found.");
+        getProduct(productID);
+    });    
+
+    $('#updateProduct').click(function () {
+        console.log("#updateProduct : clicked");
+        var productID = $("#productIDInput").val();
+        updateProduct(productID);
     });
 });
 

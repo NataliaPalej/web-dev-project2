@@ -128,6 +128,7 @@ function updateProduct($productID) {
 	$stock = $products->stock;
 	$onSale = $products->onSale;
 	$discontinued = $products->discontinued;
+	$picture = $products->picture;
 	// Update the product in the database
     $query = "UPDATE products SET
               productName = '$productName',
@@ -137,7 +138,8 @@ function updateProduct($productID) {
               price = $price,
               stock = $stock,
               onSale = '$onSale',
-              discontinued = '$discontinued'
+              discontinued = '$discontinued',
+			  picture = '$picture'
               WHERE productID = $productID";
 	
 	try{

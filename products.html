@@ -275,7 +275,7 @@
         <h3 class="raleway w3-center">Update Product Details</h3>
         <p class="text-center w3-margin">Here you can make changes to products.</p>
         <label class="label">Enter Product ID: </label>
-        <input class="inputText" type="text" id="prouctID">
+        <input class="inputText" type="text" id="productIDInput">
         <button type="button" class="btn btn-success w3-right" id="searchProductBtn">Search</button>
 
         <div class="container" id="updateProductForm" style="display:none;">
@@ -284,28 +284,28 @@
                 <div class="w3-third w3-container">
                     <p class="w3-margin label">Product ID: <span id="productID"></span></p>
                     <!-- Possibly will need to change the id to productPicture -->
-                    <img id="picture" class="w3-left w3-margin" src="" alt="" style="width:250px">
-                    <input type="text" id="picture" class="inputText" placeholder="file-name.jpg">
+                    <img id="pictureView" class="w3-left w3-margin" src="" alt="" style="width:250px">
+                    <input type="text" id="pictureInput" class="inputText" placeholder="file-name.jpg">
                 </div>
 
                 <div class="w3-twothird w3-container w3-responsive">
                     <form>
                         <label class="label">Name: </label>
-                        <input type="text" id="productName" class="inputText">
+                        <input type="text" id="updateName" class="inputText">
                         <label class="label">Category:</label>
-                        <input type="text" id="productCategoy" class="inputText">
+                        <input type="text" id="updateCategory" class="inputText">
                         <label class="label">Description:</label>
-                        <input type="text" id="productDescription" class="inputText">
+                        <input type="text" id="updateDescription" class="inputText">
                         <label class="label">Company:</label>
-                        <input type="text" id="company" class="inputText">
+                        <input type="text" id="updateCompany" class="inputText">
                         <label class="label">Price:</label>
-                        <input type="text" id="price" class="inputText">
+                        <input type="text" id="updatePrice" class="inputText">
                         <label class="label">Stock:</label>
-                        <input type="text" id="stock" class="inputText">
+                        <input type="text" id="updateStock" class="inputText">
                         <label class="label">Sale:</label>
-                        <input type="text" id="onSale" class="inputText">
+                        <input type="text" id="updateOnSale" class="inputText">
                         <label class="label">Discontinued:</label>
-                        <input type="text" id="discontinued" class="inputText">
+                        <input type="text" id="updateDiscontinued" class="inputText">
                         <button type="submit" class="button-login" id="updateProduct">Save</button>
                     </form>
                 </div>
