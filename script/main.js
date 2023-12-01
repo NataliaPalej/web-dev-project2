@@ -447,16 +447,15 @@ var renderUser = function (data) {
 // UPDATE user by ID
 var updateUser = function () {
     var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
-    console.log("updateUser(id) : called\nUser to update: " + loggedInUser.userID + " " + loggedInUser.username);
+    console.log("updateUser(id) : called");
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
         url: userURL + '/' + loggedInUser.userID,
         data: userToJSON(),
         success: function (data, textStatus, jqXHR) {
-            console.log("success : updateUser(id) \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
-            alert("success : updateUser(id) \nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
-            console.log(loggedInUser);
+            console.log("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
+            alert("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateUser(id)\n " + textStatus);
@@ -511,7 +510,7 @@ var userToJSON = function () {
         "address": $('#address').val(),
         "phoneNo": $('#phoneNo').val(),
         "email": $('#email').val(),
-        "image": $('#picture').attr('src')
+        "image": $('#picture').val()
     });
 };
 
