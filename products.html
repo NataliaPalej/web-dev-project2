@@ -17,7 +17,6 @@
     <script src="script/jquery.dataTables.js"></script>
     <script src="script/main.js"></script>
 
-
     <style>
         .background {
             background-image: url("pics/.jpg");
@@ -125,8 +124,9 @@
                 <!-- SEARCH BY NAME -->
                 <div class="w3-container w3-half">
                     <div class="w3-container w3-responsive" id="searchByNameTab" style="display:none;">
-                        <div>
-                            <img id="picture" class="w3-margin" src="" alt="" style="width:250px">
+                        <div style="display: flex; align-items: center; margin-top: 5%;">
+                        <div style="margin-right: 20px;">
+                            <img id="picture" class="w3-margin" src="" alt="" style="width:150px">
                         </div>
                         <table id="findByNameTable">
                             <tr>
@@ -166,38 +166,15 @@
                                 <td id="discontinued"></td>
                             </tr>
                         </table>
+                        </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- SEARCH BY COMPANY -->
-                <div class="w3-container w3-half">
-                    <div class="w3-container w3-responsive" id="searchByCompanyTab" style="display:none;">
-                        <table id="findByCompanyTable" class="table table-bordered table-striped table-hover">
-                            <thead>
-                                <tr class="centre">
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Category</th>
-                                    <th>Description</th>
-                                    <th>Company</th>
-                                    <th>Price</th>
-                                    <th>Stock</th>
-                                    <th>Sale</th>
-                                    <th>Ended</th>
-                                    <th>Picture</th>
-                                </tr>
-                            </thead>
-                            <tbody id="findByCompanyBody">
-                                <!-- JQuery handles table entry from database here -->
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- SEARCH BY CATEGORY -->
-                <div class="w3-container w3-half">
-                    <div class="w3-container w3-responsive" id="searchByCategoryTab" style="display:none;">
-                    <table id="findByCategoryTable" class="table table-bordered table-striped table-hover">
+            <!-- SEARCH BY COMPANY -->
+            <div class="w3-container">
+                <div class="w3-container w3-responsive" id="searchByCompanyTab" style="display:none;">
+                    <table id="findByCompanyTable" class="table table-bordered table-striped table-hover">
                         <thead>
                             <tr class="centre">
                                 <th>ID</th>
@@ -212,15 +189,40 @@
                                 <th>Picture</th>
                             </tr>
                         </thead>
-                        <tbody id="findByCategoryBody">
+                        <tbody id="findByCompanyBody">
                             <!-- JQuery handles table entry from database here -->
                         </tbody>
                     </table>
-                    </div>
                 </div>
+            </div>
+
+            <!-- SEARCH BY CATEGORY -->
+            <div class="w3-container">
+                <div class="w3-container w3-responsive" id="searchByCategoryTab" style="display:none;">
+                <table id="findByCategoryTable" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr class="centre">
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Category</th>
+                            <th>Description</th>
+                            <th>Company</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Sale</th>
+                            <th>Ended</th>
+                            <th>Picture</th>
+                        </tr>
+                    </thead>
+                    <tbody id="findByCategoryBody">
+                        <!-- JQuery handles table entry from database here -->
+                    </tbody>
+                </table>
+                </div>
+            </div>
+  
         </div>
     </div>
-
 
     <!-- ADD -->
     <div id="addProductTab" class="tab-pane fade w3-white w3-margin w3-padding">
@@ -268,7 +270,6 @@
             </form>
         </div>
     </div>
-
 
     <!-- UPDATE -->
     <div id="updateProductTab" class="tab-pane fade w3-white w3-margin w3-padding">

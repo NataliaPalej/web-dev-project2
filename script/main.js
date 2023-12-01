@@ -82,9 +82,7 @@ var getProduct = function (id) {
 
 // Render details for one product in your HTML form
 var renderProductToUpdate = function (product) {
-    alert("renderProductToUpdate")
     console.log("renderProductToUpdate: called");
-    alert(product)
     $('#updateProductID').text(product.productID);
     $("#updateName").val(product.productName);
     $("#updateCategory").val(product.productCategory);
@@ -110,7 +108,8 @@ var findByName = function (productName) {
             console.log("Searched product:");
             console.log(data);
             console.log("success : findByName() " + data.productName);
-            currentProduct = data; // Store the product data in currentProduct
+            // Storing product info in currentProduct
+            currentProduct = data;
             renderFindByName();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -124,7 +123,7 @@ var renderFindByName = function () {
     // Loop through the list to fetch product details
     currentProduct.forEach((element) => processProduct(element));
 };
-// 
+
 function processProduct(element) {
     console.log("myFunction() product name : " + element.productName);
     $('#productID').text(element.productID);
@@ -141,7 +140,7 @@ function processProduct(element) {
         $('#picture').attr('src', 'pics/products/' + element.picture);
     } else {
         // Set default image if there is an issue with the corresponding one
-        $('#picture').attr('src', 'pics/default.jpg');
+        $('#picture').attr('src', 'pics/products/default.jpg');
     }
 }
 
@@ -306,10 +305,8 @@ var getProductToUpdate = function () {
 // Update product by ID
 var updateProduct = function () {
     var productToUpdate = getProductToUpdate();
-    alert("Product to update next: ")
-    alert(JSON.stringify(productToUpdate));
-    alert(rootURL + '/' + productToUpdate.productID);
-    console.log("updateProduct(id) : called" + productToUpdate.productID);
+    console.log("updateProduct() : called" + productToUpdate.productID);
+    console.log(rootURL + '/' + productToUpdate.productID);
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
@@ -317,14 +314,14 @@ var updateProduct = function () {
         data: JSON.stringify(productToUpdate),
         success: function (data, textStatus, jqXHR) {
             console.log("success : Product updated " + productToUpdate.productID);
-            alert("success : Product updated " + productToUpdate.productID);
+            alert("success : Product updated " + productToUpdate.productID + " " + productToUpdate.productName);
             window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateProduct(): " + textStatus);
+            alert("error : updateProduct(): " + textStatus + "\n" + errorThrown);
         }
     });
-    alert("success : Product updated " + productToUpdate.productID);
 };
 
 // Render details for ALL products
@@ -403,7 +400,7 @@ var productToJSON = function () {
 
     var newProduct = productData;
     console.log("success : productToJSON() called.");
-    alert(JSON.stringify(newProduct));
+    //alert(JSON.stringify(newProduct));
     return newProduct;
 };
 
@@ -442,9 +439,8 @@ var addUser = function () {
             window.location.href = "login.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("error : requestData() details:\n" + requestData);
             console.log("Type of requestData(): " + typeof(requestData));
-            alert("error : addUser() when adding user")
+            alert("error : addUser() when adding user\n" + textStatus + "\n" + errorThrown);
             console.log("error : addUser()\n" + textStatus + " \n" + errorThrown);
         }
     });
@@ -495,14 +491,14 @@ var updateUser = function () {
         url: userURL + '/' + loggedInUser.userID,
         data: userToJSON(),
         success: function (data, textStatus, jqXHR) {
-            console.log("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
-            alert("success : User was updated successfully " );
+            console.log("success : updateUser()\n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " updated successfully ");
+            alert("success : updateUser()\nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " updated successfully " );
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            console.log("error : updateUser(id)\n " + textStatus);
+            console.log("error : updateUser()\n " + textStatus);
+            alert("error : updateUser(id)\n " + textStatus + "\n" + errorThrown);
         }
     });
-    alert("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
 };
 
 // RESET table rows for user
@@ -535,7 +531,7 @@ var deleteUser = function () {
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : deleteUser() " + textStatus);
-            alert("error : deleteUser() " + textStatus);
+            alert("error : deleteUser() " + textStatus + "\n" + errorThrown);
         }
     });
 };
@@ -571,17 +567,17 @@ var registerToJSON = function () {
         "image": $('#image').val(),
     };
     var newUser = userData;
-    alert("registerToJSON() User JSON created successfully.");
     return newUser;
 };
 
 
-/**********************    D      O       M     R   E   A  D   Y    **********************************/
+/**********************    DOM     READY    **********************************/
 $(document).ready(function () {
 
     // LOGIN
     $('#btnLogin').click(function (e) {
         console.log("btnLogin clicked");
+        // Prevent the default behavior, gives more control over what is happening after btn clicked
         e.preventDefault();
 
         // Retrieve email and password from login page
@@ -599,6 +595,18 @@ $(document).ready(function () {
         e.preventDefault();
         registerBtn();
     });
+
+    // Call findAll and getUser method
+    try {
+        findAll();
+    } catch (error) {
+        console.log("Couldnt  load findAll() products yet.");
+    }
+    try {
+        getUser();
+    } catch (error) {
+        console.log("Couldnt  load getUser() details yet.");
+    }
 
     // BACK button
     $('#backBtn').click(function () {
@@ -623,18 +631,6 @@ $(document).ready(function () {
         // Toggle the collapse state of corresponding accordion content
         $(this).closest('tr').find('.description-accordion').collapse('toggle');
     });
-
-    // Call findAll and getUser method
-    try {
-        findAll();
-    } catch (error) {
-        console.log("Couldnt  load findAll() products yet.");
-    }
-    try {
-        getUser();
-    } catch (error) {
-        console.log("Couldnt  load getUser() details yet.");
-    }
 
     // ADD user
     $('#addUser').click(function (e) {
@@ -686,7 +682,6 @@ $(document).ready(function () {
         // Get the product ID
         var productToDelete = $('#productToDelete').val();
 
-        // Perform the search logic here (e.g., check if the product exists)
         if (productToDelete != null || productToDelete !== '') {
             console.log("searchProductToDelete : product to delete " + productToDelete);
             $('#deleteProductForm').show();
@@ -714,9 +709,17 @@ $(document).ready(function () {
         }
     });
 
+    // Function to clear the table
+    function clearTable(tabId) {
+        $(tabId).find('tbody').empty();
+    }
+
     $('#searchByCategory').click(function () {
+        $('#searchByCompanyTab').hide();
         console.log("#searchByCategory clicked")
-        // Get the product ID
+        // Clear the table
+        clearTable('#searchByCategoryTab');
+        // Get the product category
         var category = $('#categoryInput').val();
 
         if (category != null || category !== '') {
@@ -730,8 +733,11 @@ $(document).ready(function () {
     });
 
     $('#searchByCompany').click(function () {
+        $('#searchByCompanyTab').hide();
         console.log("#searchByCompany clicked")
-        // Get the product ID
+        // Clear the table
+        clearTable('#searchByCompanyTab');
+        // Get the product company name
         var company = $('#companyInput').val();
 
         if (company != null || company !== '') {
@@ -751,6 +757,7 @@ $(document).ready(function () {
         addProduct();
     });
 
+    // GET product to update
     $('#searchProductBtn').click(function () {
         console.log("#searchProductBtn : clicked");
         var productID = $("#productIDInput").val();
@@ -758,9 +765,9 @@ $(document).ready(function () {
         getProduct(productID);
     });    
 
+    // UPDATE product
     $('#updateProduct').click(function () {
         console.log("#updateProduct : clicked");
         updateProduct();
     });
 });
-
