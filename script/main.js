@@ -15,10 +15,9 @@ var loginUser = function (email, password) {
             console.log("Success Data:", data);
             // If status 200 user auth and can be redirected to home.html
             if (jqXHR.status === 200) {
-                alert("Loging successful")
                 console.log("Login successful!");
                 sessionStorage.setItem('loggedInUser', data);
-                window.location.href = 'home.html';
+                window.location.href = 'index.html';
                 var loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
                 console.log("Logged in user details:", loggedInUser);
             } else {
@@ -253,7 +252,7 @@ var addProduct = function () {
         success: function (textStatus, jqXHR) {
             console.log("success : addProduct()\nProduct " + requestData.productName + " added successfully.");
             alert("success : addProduct()\nProduct " + requestData.productName + " added successfully.");
-            window.location.href = "products.html";
+            clearProductTable();
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("error : addProduct()\nrequestData() details:\n" + requestData);
@@ -263,6 +262,19 @@ var addProduct = function () {
         }
     });
 };
+
+var clearProductTable = function () {
+    console.log("success : resetUserDetails() called")
+    $('#inputName').val("");
+    $('#inputCategory').val("");
+    $('#inputDescription').val("");
+    $('#inputCompany').val("");
+    $('#inputPrice').val("");
+    $('#inputStock').val("");
+    $('#inputDiscontinued').val("");
+    $('#inputOnSale').val("");
+    $('#inputPicture').val("");
+}
 
 // GET product to delete
 var getProductToDelete = function (id) {
@@ -287,14 +299,14 @@ var getProductToDelete = function (id) {
 var renderProductToDelete = function (product) {
     console.log("renderProductToUpdate: called");
     $('#deleteProductID').text(product.productID);
-    $("#deleteName").val(product.productName);
-    $("#deleteeCategory").val(product.productCategory);
-    $("#deleteDescription").val(product.productDescription);
-    $("#deleteCompany").val(product.company);
-    $("#deletePrice").val(product.price);
-    $("#deleteStock").val(product.stock);
-    $("#deleteOnSale").val(product.onSale);
-    $("#deleteDiscontinued").val(product.discontinued);
+    $("#deleteName").text(product.productName);
+    $("#deleteeCategory").text(product.productCategory);
+    $("#deleteDescription").text(product.productDescription);
+    $("#deleteCompany").text(product.company);
+    $("#deletePrice").text(product.price);
+    $("#deleteStock").text(product.stock);
+    $("#deleteOnSale").text(product.onSale);
+    $("#deleteDiscontinued").text(product.discontinued);
     $('#deletePicture').attr('src', 'pics/products/' + product.picture);
 };
 
@@ -310,8 +322,8 @@ var deleteProduct = function (id) {
         url: rootURL + '/' + id,
         success: function (data, textStatus, jqXHR) {
             console.log("success : Product " + id + " deleted.");
-            alert("success : Product " + id + " deleted.");
-            window.location.href = "products.html";
+            alert("success : Product " + id + " deleted.\nYou will be redirected to Admin page.");
+            window.location.href = "admin.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : deleteProduct() " + textStatus);
@@ -349,7 +361,6 @@ var updateProduct = function () {
         success: function (data, textStatus, jqXHR) {
             console.log("success : Product updated " + productToUpdate.productID);
             alert("success : Product updated " + productToUpdate.productID + " " + productToUpdate.productName);
-            window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateProduct(): " + textStatus);
@@ -733,6 +744,8 @@ $(document).ready(function () {
 
     // SEARCH product BY
     $('#searchByName').click(function () {
+        $('#companyInput').val("");
+        $('#categoryInput').val("");
         console.log("#searchByName clicked")
         // Get the product name
         var productName = $('#productInput').val();
@@ -740,6 +753,7 @@ $(document).ready(function () {
         if (productName != null || productName !== '') {
             $('#searchByNameTab').show();
             findByName(productName);
+            $('#productInput').val("");
         } else {
             alert("error : searchByName()\nProduct " + productName + " doesn't exist.");
             console.log("error : searchByName " + productName + " doesn't exist.");
@@ -752,6 +766,8 @@ $(document).ready(function () {
     }
 
     $('#searchByCategory').click(function () {
+        $('#productInput').val("");
+        $('#companyInput').val("");
         $('#searchByCompanyTab').hide();
         console.log("#searchByCategory clicked")
         // Clear the table
@@ -763,6 +779,7 @@ $(document).ready(function () {
             console.log("searchByCategory : " + category);
             $('#searchByCategoryTab').show();
             findByCategory(category);
+            $('#categoryInput').val("");
         } else {
             alert("error : searchByCategory()\nProduct " + category + " doesn't exist.");
             console.log("error : searchByCategory " + category + " doesn't exist.");
@@ -770,6 +787,8 @@ $(document).ready(function () {
     });
 
     $('#searchByCompany').click(function () {
+        $('#productInput').val("");
+        $('#categoryInput').val("");
         $('#searchByCompanyTab').hide();
         console.log("#searchByCompany clicked")
         // Clear the table
@@ -781,6 +800,7 @@ $(document).ready(function () {
             console.log("searchByCompany : " + company);
             $('#searchByCompanyTab').show();
             findByCompany(company);
+            $('#companyInput').val("");
         } else {
             alert("error : searchByCompany()\nProduct " + company + " doesn't exist.");
             console.log("error : searchByCategory " + company + " doesn't exist.");
@@ -798,7 +818,6 @@ $(document).ready(function () {
     $('#searchProductBtn').click(function () {
         console.log("#searchProductBtn : clicked");
         var productID = $("#productIDInput").val();
-        alert("ProductID  "+  productID + " found.");
         getProduct(productID);
     });    
 
@@ -807,37 +826,4 @@ $(document).ready(function () {
         console.log("#updateProduct : clicked");
         updateProduct();
     });
-
-    // Show/hide tabs based on button clicks
-    // $('#searchProductTab').click(function () {
-    //     console.log("searchProductTab clicked")
-    //     $('#searchProductTab').show();
-    //     $('#addProductTab').hide();
-    //     $('#updateProductTab').hide();
-    //     $('#deleteProductTab').hide();
-    // });
-
-    // $('#addProductTab').click(function () {
-    //     console.log("addProductTab clicked")
-    //     $('#searchProductTab').hide();
-    //     $('#addProductTab').show();
-    //     $('#updateProductTab').hide();
-    //     $('#deleteProductTab').hide();
-    // });
-
-    // $('#updateProductTab').click(function () {
-    //     console.log("updateProductTab clicked")
-    //     $('#searchProductTab').hide();
-    //     $('#addProductTab').hide();
-    //     $('#updateProductTab').show();
-    //     $('#deleteProductTab').hide();
-    // });
-
-    // $('#deleteProductTab').click(function () {
-    //     console.log("deleteProductTab clicked")
-    //     $('#searchProductTab').hide();
-    //     $('#addProductTab').hide();
-    //     $('#updateProductTab').hide();
-    //     $('#deleteProductTab').show();
-    // });
 });

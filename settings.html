@@ -54,11 +54,21 @@
 
             <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="home.html">Home</a></li>
-                    <li><a href="index.html">Products</a></li>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="products.html">Products</a></li>
                     <li><a href="settings.html">Settings</a></li>
-                    <li><a href="products.html">Admin</a></li>
-                    <li><a id="openLogoutModal" data-toggle=modal data-target="#logoutModal" style="cursor: pointer;">Logout</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="admin.html">Search Product</a></li>
+                            <li><a href="admin.html">Add Product</a></li>
+                            <li><a href="admin.html">Update Product</a></li>
+                            <li><a href="admin.html">Delete Product</a></li>
+                        </ul>
+                    </li>
+                    <li><a id="openLogoutModal" data-toggle="modal" data-target="#logoutModal" style="cursor: pointer;">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -76,24 +86,23 @@
 
             <!-- Different TABS -->
             <div class="col-sm-12">
-                <div class="tab-content">
+                <div class="tab-content" style="margin-bottom: 180px;">
                     <!-- Update -->
                     <div id="updateTab" class="tab-pane fade in active w3-white w3-margin w3-padding">
                         <h3 class="raleway w3-center">Update Account</h3>
-                        <p class="text-center w3-margin">Here you can make changes to your account.</p>
-                        <div class="container">
-                            <!-- Display Picture -->
+                        <p class="w3-margin">Here you can make changes to your account.</p>
                             <div class="w3-row">
                                 <div class="w3-third w3-container">
-                                    <p class="w3-margin label">Your ID: <span id="userID"></span></p>
-                                    <img id="image" class="w3-left w3-margin" src="" alt="" style="width:250px"/>
-                                    <form>
-                                        <label class="label">Picture: </label>
-                                        <input type="text" id="picture" class="inputText">
-                                    </form>
+                                    <div class="w3-container">
+                                        <p class="w3-left w3-margin label">Your ID: <span id="userID"></span></p>
+                                        <img id="image" class="w3-left w3-margin" src="" alt="" style="width:250px"/>
+                                    </div>
+                                    <div class="w3-container">
+                                        <p><span class="label">Picture:</span><input type="text" id="picture" class="inputText"></p>
+                                    </div>
                                 </div>
 
-                                <div class="w3-twothird w3-container w3-responsive">
+                                <div class="w3-twothird w3-container">
                                     <form>
                                         <label class="label">Username: </label>
                                         <input type="text" id="username" class="inputText">
@@ -113,19 +122,17 @@
                                     </form>
                                 </div>
                             </div>
-
-                        </div> 
                     </div>
-                    <br><br><br><br><br><br>
 
                     <!-- Delete -->
-                    <div id="deleteTab" class="tab-pane fade w3-white w3-margin w3-padding">
-                        <h3 class="raleway w3-center">Delete Account</h3>
-                        <button id="openDeleteModal" class="button btn-danger w3-margin" style="width: 200px;" data-toggle=modal data-target="#deleteModal">Delete
-                            Account</button>
+                    <div id="deleteTab" class="tab-pane fade container w3-card w3-padding w3-margin col-md-11">
+                        <div class="row justify-content-center text-center w3-padding w3-responsive">
+                            <h3 class="raleway">Delete Account</h3>
+                            <button id="openDeleteModal" class="button btn-danger" style="width: 200px;" data-toggle=modal data-target="#deleteModal">Delete ccount</button>
+                        </div>
                     </div>
 
-                    <!-- Modal -->
+                    <!-- Delete Modal -->
                     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -147,9 +154,11 @@
                     </div>
 
                     <!-- Logout -->
-                    <div id="logoutTab" class="tab-pane fade w3-white w3-margin w3-padding">
-                        <h3 class="raleway w3-center">Are you sure you want to log out?</h3>
-                        <button id="openLogoutModal" class="button w3-margin" style="width: 200px;" data-toggle=modal data-target="#logoutModal">Logout</button>
+                    <div id="logoutTab" class="tab-pane fade container w3-card w3-padding w3-margin col-md-11">
+                        <div class="row justify-content-center text-center w3-padding w3-responsive">
+                            <h3 class="raleway w3-center">Logout</h3>
+                            <button id="openLogoutModal" class="button-login" style="width: 200px;" data-toggle=modal data-target="#logoutModal">Logout</button>
+                        </div>
                     </div>
 
                     <!-- Logout Modal -->
