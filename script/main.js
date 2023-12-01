@@ -61,7 +61,7 @@ var findAll = function () {
     });
 };
 
-// GET by ID
+// GET by
 var findById = function (id) {
     console.log("success :findById() called\tSearch for: " + id);
     $.ajax({
@@ -137,7 +137,7 @@ var findByCategory = function (productSearch) {
     });
 };
 
-// Render details for ALL products
+// Render details for findByCategory
 var renderCategoryList = function (data) {
     console.log(data);
     console.log("renderList() loading...");
@@ -185,7 +185,7 @@ var findByCompany = function (productSearch) {
     });
 };
 
-// Render details for ALL products
+// Render details for findByCompany
 var renderCompanyList = function (data) {
     console.log(data);
     console.log("renderList() loading...");
@@ -269,17 +269,17 @@ var deleteProduct = function (id) {
 };
 
 // Update product by ID
-var updateProduct = function () {
+var updateProduct = function (id) {
     console.log("updateProduct() : called");
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
-        url: rootURL + '/' + $('#productID').val(),
+        url: rootURL + '/' + id,
         data: formToJSON(),
         success: function (data, textStatus, jqXHR) {
-            console.log("success : Product updated " + $('#productID'.val()));
-            alert("success : Product updated " + $('#productID'.val()));
-            findAll();
+            console.log("success : Product updated " + id);
+            alert("success : Product updated " + id);
+            window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateProduct(): " + textStatus);
@@ -440,6 +440,7 @@ var renderUser = function (data) {
     $('#lastName').val(loggedInUser.lastName);
     $('#address').val(loggedInUser.address);
     $('#phoneNo').val(loggedInUser.phoneNo);
+    $('#picture').val(loggedInUser.image);
 
     console.log("success : renderUser() loaded");
 };
@@ -455,12 +456,13 @@ var updateUser = function () {
         data: userToJSON(),
         success: function (data, textStatus, jqXHR) {
             console.log("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully ");
-            alert("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
+            alert("success : User was updated successfully " );
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateUser(id)\n " + textStatus);
         }
     });
+    alert("success : updateUser(id) \n User "+ loggedInUser.userID + " " + loggedInUser.firstName + " was updated successfully " );
 };
 
 // RESET table rows for user
@@ -510,7 +512,7 @@ var userToJSON = function () {
         "address": $('#address').val(),
         "phoneNo": $('#phoneNo').val(),
         "email": $('#email').val(),
-        "image": $('#picture').val()
+        "image": $('#picture').val(),
     });
 };
 
