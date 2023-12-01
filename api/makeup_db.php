@@ -80,33 +80,37 @@ function findByCategory($productCategory) {
 
 // Insert new product 
 function addProduct(){
-	global $app;
-	$request = $app->request();
-	$products = json_decode($request->getBody());
-	$productName = $products->productName;
-	$productCategory = $products->productCategory;
-	$productDescription = $products->productDescription;
-	$company = $products->company;
-	$price = $products->price;
-	$stock = $products->stock;
-	$onSale = $products->onSale;
-	$discontinued = $products->discontinued;
-	$query = "INSERT INTO products 
-          (productName, productCategory, productDescription, company, price, stock, onSale, discontinued) 
-          VALUES 
-          ('$productName', '$productCategory', '$productDescription', '$company', '$price', '$stock', '$onSale', '$discontinued')";
-	
-	try {
-		global $db;
-		$db->exec($query);
-		$products->productID = $db->lastInsertId();
-		$app->response->headers->set('Content-Type', 'application/json');
-		echo '{"Success":{"message": "Product successfully added."}}';
-		echo json_encode($products);
-	} catch (PDOException $e) {
-		$app->response->headers->set('Content-Type', 'application/json');
-		echo '{"error":{"message":"Could not add product.","details":"' . $e->getMessage() . '"}}';
-	}
+    global $app;
+    $request = $app->request();
+    $products = json_decode($request->getBody());
+
+    $productName = $products->productName;
+    $productCategory = $products->productCategory;
+    $productDescription = $products->productDescription;
+    $company = $products->company;
+    $price = $products->price;
+    $stock = $products->stock;
+    $onSale = $products->onSale;
+    $discontinued = $products->discontinued;
+    $picture = $products->picture;
+
+    $query = "INSERT INTO products 
+              (productName, productCategory, productDescription, company, price, stock, onSale, discontinued, picture) 
+              VALUES 
+              (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+    try {
+        global $db;
+        $stmt = $db->prepare($query);
+        $stmt->execute([$productName, $productCategory, $productDescription, $company, $price, $stock, $onSale, $discontinued, $picture]);
+
+        $products->productID = $db->lastInsertId();
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo json_encode(array("success" => array("message" => "Product added successfully", "products" => $products)));
+    } catch (PDOException $e) {
+        $app->response->headers->set('Content-Type', 'application/json');
+        echo '{"error":{"message":"Could not add product.","details":"' . $e->getMessage() . '"}}';
+    }
 }
 
 // Update product by ID
