@@ -85,7 +85,7 @@ var renderProductToUpdate = function (product) {
     alert("renderProductToUpdate")
     console.log("renderProductToUpdate: called");
     alert(product)
-    $('#productID').val(product.productID);
+    $('#updateProductID').text(product.productID);
     $("#updateName").val(product.productName);
     $("#updateCategory").val(product.productCategory);
     $("#updateDescription").val(product.productDescription);
@@ -287,23 +287,44 @@ var deleteProduct = function (id) {
     });
 };
 
+// Function to get product data from form fields
+var getProductToUpdate = function () {
+    return {
+        productID: $('#updateProductID').text(),
+        productName: $("#updateName").val(),
+        productCategory: $("#updateCategory").val(),
+        productDescription: $("#updateDescription").val(),
+        company: $("#updateCompany").val(),
+        price: $("#updatePrice").val(),
+        stock: $("#updateStock").val(),
+        onSale: $("#updateOnSale").val(),
+        discontinued: $("#updateDiscontinued").val(),
+        picture: $('#pictureInput').val()
+    };
+};
+
 // Update product by ID
-var updateProduct = function (id) {
-    console.log("updateProduct(id) : called" + id);
+var updateProduct = function () {
+    var productToUpdate = getProductToUpdate();
+    alert("Product to update next: ")
+    alert(JSON.stringify(productToUpdate));
+    alert(rootURL + '/' + productToUpdate.productID);
+    console.log("updateProduct(id) : called" + productToUpdate.productID);
     $.ajax({
         type: 'PUT',
         contentType: "application/json",
-        url: rootURL + '/' + id,
-        data: formToJSON(), // You'll need to implement formToJSON according to your HTML form
+        url: rootURL + '/' + productToUpdate.productID,
+        data: JSON.stringify(productToUpdate),
         success: function (data, textStatus, jqXHR) {
-            console.log("success : Product updated " + id);
-            alert("success : Product updated " + id);
+            console.log("success : Product updated " + productToUpdate.productID);
+            alert("success : Product updated " + productToUpdate.productID);
             window.location.href = "products.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
             console.log("error : updateProduct(): " + textStatus);
         }
     });
+    alert("success : Product updated " + productToUpdate.productID);
 };
 
 // Render details for ALL products
@@ -361,8 +382,6 @@ var renderDetails = function (product) {
         $('#picture').attr('src', 'pics/products/default.jpg');
     }
 };
-
-
 
 // Serialize form fields into JSON
 var productToJSON = function () {
@@ -741,8 +760,7 @@ $(document).ready(function () {
 
     $('#updateProduct').click(function () {
         console.log("#updateProduct : clicked");
-        var productID = $("#productIDInput").val();
-        updateProduct(productID);
+        updateProduct();
     });
 });
 
