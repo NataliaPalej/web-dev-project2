@@ -389,7 +389,7 @@ var formToJSON = function () {
 var addUser = function () {
     console.log("addUser() : called");
     var requestData = registerToJSON();
-
+    
     $.ajax({
         type: 'POST',
         contentType: 'application/json',
@@ -402,9 +402,9 @@ var addUser = function () {
             window.location.href = "login.html";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-            alert("error : addUser()\nrequestData() details:\n" + requestData);
-            console.log("Type of requestData(): " + typeof (requestData));
-            alert("error : addUser() when adding user" + textStatus + "\n" + errorThrown);
+            alert("error : requestData() details:\n" + requestData);
+            console.log("Type of requestData(): " + typeof(requestData));
+            alert("error : addUser() when adding user")
             console.log("error : addUser()\n" + textStatus + " \n" + errorThrown);
         }
     });
@@ -517,8 +517,9 @@ var userToJSON = function () {
 
 // Register serialize user form fields into JSON
 var registerToJSON = function () {
-    // Construct the JSON object
+    // Construct the JSON object with the image data
     var userData = {
+        //"userID": $('#userID').val(),
         "username": $('#username').val(),
         "password": $('#password').val(),
         "firstName": $('#firstName').val(),
@@ -529,7 +530,7 @@ var registerToJSON = function () {
         "image": $('#image').val(),
     };
     var newUser = userData;
-    console.log("success : registerToJSON() called.");
+    alert("registerToJSON() User JSON created successfully.");
     return newUser;
 };
 

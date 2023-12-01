@@ -220,7 +220,7 @@ function searchByName($firstName){
 }
 
 function addUser(){
-	global $app;
+    global $app;
 	global $db;
 	$request = $app->request();
 	$users = json_decode($request->getBody());
