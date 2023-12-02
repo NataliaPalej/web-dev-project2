@@ -47,11 +47,11 @@ h3 {
 	font-size: 15px !important;
 }
 
-.label-white {
+/* .label-white {
 	color: white;
 	font-weight: bold;
 	text-align: left;
-}
+} */
 
 footer {
 	position: fixed;
@@ -147,18 +147,18 @@ input[type="submit"]:hover {
 	background-color: #221823 !important;
 }
 
-.form-margin-left {
+/* .form-margin-left {
 	margin-left: 64px;
 	padding: 32px;
 	background-color: white;
 	opacity: 85%;
-}
+} */
 
-.form-margin-top {
+/* .form-margin-top {
 	margin-top: 120px;
 	margin-bottom: 64px;
 	padding: 64x;
-}
+} */
 
 /* When screen is < 1000 hide the image */
 @media (max-width: 1000px) {
@@ -175,7 +175,8 @@ input[type="submit"]:hover {
 @media (max-width: 900px) {
 	#productTable th, #productTable td:nth-child(4), #productTable td:nth-child(5),
 	#productTable td:nth-child(7), #productTable td:nth-child(8), #productTable td:nth-child(9), #productTable td:nth-child(10) {
-		display: none; /* Hide columns on small screens */
+		/* Hide columns on small screens */
+		display: none; 
 	}
 };
 
@@ -191,7 +192,7 @@ input[type="submit"]:hover {
     flex: 0 0 66.667%;
 }
 
-/* Media query for smaller screens */
+/* Media for smaller screens */
 @media (max-width: 768px) {
     .w3-container {
         flex-direction: column;

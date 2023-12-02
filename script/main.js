@@ -60,6 +60,41 @@ var findAll = function () {
     });
 };
 
+// Render details for ALL products
+var renderList = function (data) {
+    console.log("renderList() loading...");
+    var list = data.products;
+    $.each(list, function (index, products) {
+        var row = $('<tr>');
+        row.append('<td>' + products.productID + '</td>');
+        row.append('<td style="font-size: 14px;">' + products.productName + '</td>');
+        row.append('<td>' + products.productCategory + '</td>');
+
+        // Create Description column with accordion to show text when pressed
+        var descriptionColumn = $('<td style="font-size: 11px;">');
+        descriptionColumn.append(
+            '<a class="btn btn-link" data-toggle="collapse" href="#descriptionAccordion' + index + '" role="button" aria-expanded="false" aria-controls="descriptionAccordion' + index + '">Show Description</a>'
+        );
+        descriptionColumn.append(
+            '<div class="collapse description-accordion" id="descriptionAccordion' + index + '">' + products.productDescription + '</div>'
+        );
+        row.append(descriptionColumn);
+
+        row.append('<td>' + products.company + '</td>');
+        row.append('<td>&euro;' + products.price + '</td>');
+        row.append('<td>' + products.stock + '</td>');
+        row.append('<td>' + products.onSale + '</td>');
+        row.append('<td>' + products.discontinued + '</td>');
+        row.append('<td><img src="pics/products/' + products.picture + '" alt="' + products.productName + '" width="100" height="100"></td>');
+
+        // Append the row to the tbody
+        $('#productsBody').append(row);
+    });
+
+    console.log("success : renderList() loaded");
+    $('#productTable').dataTable();
+};
+
 // GET by
 var getProduct = function (id) {
     console.log("success :findById() called\tSearch for: " + id);
@@ -391,41 +426,6 @@ var updateProduct = function () {
             alert("error : updateProduct(): " + textStatus + "\n" + errorThrown);
         }
     });
-};
-
-// Render details for ALL products
-var renderList = function (data) {
-    console.log("renderList() loading...");
-    var list = data.products;
-    $.each(list, function (index, products) {
-        var row = $('<tr>');
-        row.append('<td>' + products.productID + '</td>');
-        row.append('<td style="font-size: 14px;">' + products.productName + '</td>');
-        row.append('<td>' + products.productCategory + '</td>');
-
-        // Create Description column with accordion to show text when pressed
-        var descriptionColumn = $('<td style="font-size: 11px;">');
-        descriptionColumn.append(
-            '<a class="btn btn-link" data-toggle="collapse" href="#descriptionAccordion' + index + '" role="button" aria-expanded="false" aria-controls="descriptionAccordion' + index + '">Show Description</a>'
-        );
-        descriptionColumn.append(
-            '<div class="collapse description-accordion" id="descriptionAccordion' + index + '">' + products.productDescription + '</div>'
-        );
-        row.append(descriptionColumn);
-
-        row.append('<td>' + products.company + '</td>');
-        row.append('<td>&euro;' + products.price + '</td>');
-        row.append('<td>' + products.stock + '</td>');
-        row.append('<td>' + products.onSale + '</td>');
-        row.append('<td>' + products.discontinued + '</td>');
-        row.append('<td><img src="pics/products/' + products.picture + '" alt="' + products.productName + '" width="100" height="100"></td>');
-
-        // Append the row to the tbody
-        $('#productsBody').append(row);
-    });
-
-    console.log("success : renderList() loaded");
-    $('#productTable').dataTable();
 };
 
 // Render details for findByCategory/findByCompany product
