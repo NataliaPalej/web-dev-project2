@@ -36,7 +36,7 @@ $app->delete('/user/:userID', 'deleteUser');
 /**
 login
 **/
-$app->get('/authenticate', 'authenticateUser');;
+$app->get('/authenticate', 'authenticateUser');
 
 $app->run();
 ?>
