@@ -263,6 +263,30 @@ var addProduct = function () {
     });
 };
 
+// Serialize form fields into JSON
+var productToJSON = function () {
+    // Construct the JSON object using jQuery's .val() method
+    var productData = {
+        "productName": $('#inputName').val(),
+        "productCategory": $('#inputCategory').val(),
+        "productDescription": $('#inputDescription').val(),
+        "company": $('#inputCompany').val(),
+        "price": $('#inputPrice').val(),
+        "stock": $('#inputStock').val(),
+        "onSale": $('#inputOnSale').val(),
+        "discontinued": $('#inputDiscontinued').val(),
+        "picture": $('#inputPicture').val(),
+    };
+    // Convert price and stock to numbers
+    productData.price = parseFloat(productData.price);
+    productData.stock = parseInt(productData.stock, 10);
+
+    var newProduct = productData;
+    console.log("success : productToJSON() called.");
+    //alert(JSON.stringify(newProduct));
+    return newProduct;
+};
+
 var clearProductTable = function () {
     console.log("success : resetUserDetails() called")
     $('#inputName').val("");
@@ -426,30 +450,6 @@ var renderDetails = function (product) {
 };
 
 // Serialize form fields into JSON
-var productToJSON = function () {
-    // Construct the JSON object using jQuery's .val() method
-    var productData = {
-        "productName": $('#inputName').val(),
-        "productCategory": $('#inputCategory').val(),
-        "productDescription": $('#inputDescription').val(),
-        "company": $('#inputCompany').val(),
-        "price": $('#inputPrice').val(),
-        "stock": $('#inputStock').val(),
-        "onSale": $('#inputOnSale').val(),
-        "discontinued": $('#inputDiscontinued').val(),
-        "picture": $('#inputPicture').val(),
-    };
-    // Convert price and stock to numbers
-    productData.price = parseFloat(productData.price);
-    productData.stock = parseInt(productData.stock, 10);
-
-    var newProduct = productData;
-    console.log("success : productToJSON() called.");
-    //alert(JSON.stringify(newProduct));
-    return newProduct;
-};
-
-// Serialize form fields into JSON
 var formToJSON = function () {
     var productID = $('#productID').val();
     return JSON.stringify({
@@ -544,6 +544,7 @@ var updateUser = function () {
             alert("error : updateUser(id)\n " + textStatus + "\n" + errorThrown);
         }
     });
+    alert("success : updateUser()\nUser " + loggedInUser.userID + " " + loggedInUser.firstName + " updated successfully " );
 };
 
 // RESET table rows for user
